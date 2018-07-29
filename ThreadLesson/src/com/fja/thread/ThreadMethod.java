@@ -27,7 +27,7 @@ public class ThreadMethod extends Thread{
 		 * 	       父类偷鸡摸狗，则子类允许是良民或者偷鸡摸狗，但是不允许杀人放火
 		 */
 		//sleep(1000);
-		/**
+		/** 
 		 * 问： 这里输出true还是false？ 
 		 * 答：是true，currentThread()方法谁调用就返回谁
 		 */
