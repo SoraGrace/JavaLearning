@@ -1,0 +1,146 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+<!-- spring依赖注入的四种方式 -->
+<!-- *****************************构造器***************************** -->
+	<!--
+		注意事项一：
+			在配置bean.xml文件时，文件的路径通过"."进行分隔
+			例如：<bean id="cat" class="com.fja.test.model.Cat">
+			在java文件中书写xml路径的时候通过"/"进行分隔
+			例如：new ClassPathXmlApplicationContext("com/fja/test/config/bean.xml");
+
+		注意事项二：
+			通过getBean方法获得实例时，需要类型转换
+			通过getBean方法获取实例时，需要将xml文件中配置的id或者name作为传入参数
+
+		注意事项三：
+			通过构造器进行注入时，不填写<constructor-arg>的index属性，则按照默认从上到下的顺序进行注入。
+			如有填写index属性，则按照index的顺序执行。（ps.注意index一定要从"0"开始填写，不然无法生成实例） 
+		注意事项四：
+			type属性可以填，可以不填
+	-->
+	<bean id="cat" class="com.fja.test.model.Cat">
+		<constructor-arg index="3" type="java.lang.String" value="Russian Blue"></constructor-arg>
+		<constructor-arg index="1" type="int" value="5"></constructor-arg>
+		<constructor-arg index="2" type="java.lang.String" value="Red"></constructor-arg>
+		<constructor-arg index="0" type="java.lang.String" value="Tiger"></constructor-arg>
+	</bean>
+	
+<!-- *****************************setter***************************** -->
+	<bean name="mypet" class="com.fja.test.model.Dog">
+		<property name="name" value="Tom"></property>
+		<property name="color" value="green"></property>
+		<property name="category" value="Bulldog"></property>
+		<property name="age" value="3"></property>
+	</bean>
+	<!-- 子类继承父类时，也可以听过继承自父类的setter方法进行注入 -->
+	<bean id="dutch" class="com.fja.test.model.Dachshund">
+		<property name="name" value="Tim"></property>
+		<property name="color" value="yellow"></property>
+		<property name="category" value="Dachshund"></property>
+		<property name="age" value="2"></property>
+	</bean>
+	
+	<!-- 注入数组的方法一： 通过array标签 -->
+	<bean id="arrTest" class="com.fja.test.model.Array">
+		<property name="arr">
+			<array>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+			</array>
+		</property>
+	</bean>
+	
+	<!-- 注入数组的方法二： 通过list标签 -->
+	<bean id="brrTest" class="com.fja.test.model.Array">
+		<property name="arr">
+			<list>
+				<value>4</value>
+				<value>5</value>
+				<value>45</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 注入数组的方法三： 用逗号分隔-->
+	<bean id="crrTest" class="com.fja.test.model.Array">
+		<property name="arr">
+			<value>100,200,300</value>
+		</property>
+	</bean>
+	
+	<!--"ref"属性和ref标签的使用 -->
+	<!-- ref可以填写已有bean的id -->
+	<bean id="zoo" class="com.fja.test.model.Zoo">
+		<property name="c" ref="cat"></property>
+		<property name="d">
+			<ref bean="dutch"/>
+		</property>
+	</bean>
+	
+	<!-- 内部bean的使用 -->
+	<bean id="anotherZoo" class="com.fja.test.model.Zoo">
+		<property name="c">
+			<bean class="com.fja.test.model.Cat">
+				<constructor-arg index="0" value="Ian"></constructor-arg>
+				<constructor-arg index="1" value="1"></constructor-arg>
+				<constructor-arg index="2" value="white"></constructor-arg>
+				<constructor-arg index="3" value="Siamese"></constructor-arg>
+			</bean>
+		</property>
+		<property name="d" ref="dutch"></property>
+	</bean>
+	
+<!-- *****************************p命名空间注入***************************** -->
+	<!-- 
+		在使用p命名空间注入之前必须先将xmlns:p="http://www.springframework.org/schema/p"写入抬头
+		注入引用时
+			":"后面是实例的属性名
+			"="后面是要注入的数据的bean的id
+			p:属性名-ref="引用的bean的id"
+		直接注入值时
+			":"后面是实例的属性名
+			"="后面是要注入的值
+			p:属性名="引用的bean的id"
+		注意：用p命名空间进行注入的时候，对应的class需要有setter方法
+	 -->
+	<bean id="thirdZoo" class="com.fja.test.model.Zoo" p:c-ref="cat" p:d-ref="mypet"></bean>
+	<bean id="Garfield" class="com.fja.test.model.Dog" p:name="加菲" p:age="6" p:color="橘红色" p:category="短毛猫"></bean>
+	
+	
+<!-- *******************************工厂注入******************************** -->
+	<!-- 
+		在静态工厂模式中，<constructor-arg>不再表示用构造器注入
+		（ps.这里的静态工厂和一般意义上的静态工厂不同，指的是工厂实例化方法是静态的，因为不会实例化工厂）
+		在factory-method等号后面跟的是实例化的方法
+		使用工厂时，被代理的class需要实现一个接口
+	 -->
+	 <!-- 静态工厂 -->
+	 <bean id="benz" class="com.fja.test.model.Benz">
+		<constructor-arg index="0" type="java.lang.String" value="Benz"></constructor-arg>
+		<constructor-arg index="1" type="double" value="999999.99"></constructor-arg>
+		<constructor-arg index="2" type="java.lang.String" value="brown"></constructor-arg>
+	 </bean>
+	<bean id="carFactory" class="com.fja.test.factory.ProxyFactory" factory-method="getInstance">
+		<constructor-arg index="0" ref="benz"></constructor-arg>
+	</bean>
+	<!-- 实例工厂 -->
+	<!-- 首先要实例化工厂 这里使用的是内部bean作为构造器的参数 -->
+	<bean id="$carFactory" class="com.fja.test.factory._ProxyFactory">
+		<constructor-arg>
+			<!-- BMW的类需要有setter方法 否则无法依赖注入 -->
+			<bean id="bmw" class="com.fja.test.model.BMW">
+				<property name="brand" value="BMW"></property>
+				<property name="price" value="999999.99"></property>
+				<property name="color" value="black"></property>
+			</bean>
+		</constructor-arg>
+	</bean>
+	<!-- 实例工厂需要使用的是factory-bean属性 -->
+	<bean id="carProxy" factory-bean="$carFactory" factory-method="getInstance"></bean>
+</beans>
