@@ -33,7 +33,9 @@ class BankThread extends Thread{
 	
 	/**
 	 * 静态函数的锁对象是函数所属类的字节码文件对象(BankThread.class),类的字节码文件对象处于
-	 * 方法区，唯一且被所有对象共享
+	 * 方法区，唯一且被所有对象共享。
+	 * 
+	 * 如果是非静态的同步函数，那么锁对象就是拥有方法的对象本身，也就是this，在InterruptThread中有体现。
 	 */
 	public static synchronized void getMoney(){
 		while(true){
