@@ -14,7 +14,9 @@ package com.fja.abstractfactory;
 public class AbstractFactory {
 
 	public static void main(String[] args) {
-		
+		Factory factory = new YiliFactory();
+		System.out.println(factory.produceIce().getBrand());
+		System.out.println(factory.produceMilk().getBrand());
 	}
 }
 //抽象工厂
@@ -64,7 +66,7 @@ interface IMilk{
 
 //伊利牌冰棍
 class Yili_IceLolly implements Iice{
-	private String brand; 
+	private String brand = "伊利雪糕"; 
 	@Override
 	public String getBrand() {
 		return brand;
@@ -73,7 +75,7 @@ class Yili_IceLolly implements Iice{
 
 //蒙牛牌冰棍
 class Mengniu_IceLolly implements Iice{
-	private String brand; 
+	private String brand = "蒙牛雪糕"; 
 	@Override
 	public String getBrand() {
 		return brand;
@@ -82,7 +84,7 @@ class Mengniu_IceLolly implements Iice{
 
 //伊利牌牛奶
 class Yili_Milk implements IMilk{
-	private String brand; 
+	private String brand = "伊利牛奶"; 
 	@Override
 	public String getBrand() {
 		return brand;
@@ -91,7 +93,7 @@ class Yili_Milk implements IMilk{
 
 //蒙牛牌牛奶
 class Mengniu_Milk implements IMilk{
-	private String brand; 
+	private String brand = "蒙牛牛奶"; 
 	@Override
 	public String getBrand() {
 		return brand;
