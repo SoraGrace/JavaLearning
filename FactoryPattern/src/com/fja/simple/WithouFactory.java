@@ -18,7 +18,7 @@ public class WithouFactory {
  * 
  */
 class _Market{
-	private Milk m = null;
+	private IMilk m = null;
 	public void sellMilk(String brand){
 		 if("伊利".equals(brand)){
 			 m = new Yili();

@@ -25,8 +25,8 @@ public class SimpleFactory {
  *  
  */
 class MilkFactory{
-	Milk produceMilk(String brand){
-		Milk m = null;
+	IMilk produceMilk(String brand){
+		IMilk m = null;
 		if("蒙牛".equals(brand)){
 			m = new Mengniu();
 		}else if("伊利".equals(brand)){
@@ -39,14 +39,14 @@ class MilkFactory{
 }
 
 //定义一个接口，限定产品的类型
-interface Milk {
+interface IMilk {
 	public abstract String getBrand();
 	
 	public abstract void sellMilk();
 }
 
 //具体的产品
-class Yili implements Milk{
+class Yili implements IMilk{
 	private String brand = "伊利";
 	
 	public String getBrand(){
@@ -59,7 +59,7 @@ class Yili implements Milk{
 }
 
 //具体的产品
-class Mengniu implements Milk{
+class Mengniu implements IMilk{
 	private String brand = "蒙牛";
 
 	@Override
@@ -84,7 +84,7 @@ class Market {
 	}
 	
 	public void sellMilk(String brand){
-		Milk milk = factory.produceMilk(brand);
+		IMilk milk = factory.produceMilk(brand);
 		if(milk!=null)milk.sellMilk();
 	}
 }

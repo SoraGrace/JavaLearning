@@ -21,10 +21,10 @@ public class FactoryAdvance {
  */
 class ReflectFactory{
 	
-	public Milk produceMilk(Class<?> clazz){
-		Milk m = null;
+	public IMilk produceMilk(Class<?> clazz){
+		IMilk m = null;
 		try {
-			m = (Milk)Class.forName(clazz.getName()).newInstance();
+			m = (IMilk)Class.forName(clazz.getName()).newInstance();
 		} catch (InstantiationException e) {
 			System.out.println("不支持抽象类和接口");
 		} catch (IllegalAccessException e) {
@@ -46,7 +46,7 @@ class $Market {
 	}
 	
 	public void sellMilk(Class<?> clazz){
-		Milk milk = factory.produceMilk(clazz);
+		IMilk milk = factory.produceMilk(clazz);
 		if(milk!=null)milk.sellMilk();
 	}
 }

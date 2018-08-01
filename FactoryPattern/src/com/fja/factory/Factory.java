@@ -10,15 +10,15 @@ package com.fja.factory;
  * 		
  * 
  * 缺点：
- * 	每增加一个产品(具体工厂)，都要相应的增加子工厂，增加额外的开发量。
- *  每个抽象出来的工厂只能生产一种产品。
+ * 	1). 每增加一个产品(具体工厂)，都要相应的增加子工厂，增加额外的开发量。
+ *  2). 每个抽象出来的工厂只能生产一种产品。
  */
 public class Factory {
 
 	public static void main(String[] args) {
 		//在客户端，用户选择哪种子类工厂就决定了生产哪种产品
 		MilkFactory factory = new YiliFactory();
-		Milk m = factory.produceMilk("hot");
+		IMilk m = factory.produceMilk("hot");
 		factory.aboard(m);
 		m = factory.produceMilk("cold");
 		factory.aboard(m);
@@ -28,7 +28,7 @@ public class Factory {
 //工厂的超类
 abstract class MilkFactory{
 	//这里可以添加公共的逻辑，比如牛奶出厂的时候需要装车
-	void aboard(Milk milk){
+	void aboard(IMilk milk){
 		System.out.println(milk.getBrand()+"牌牛奶装车。");
 	}
 	
@@ -37,15 +37,15 @@ abstract class MilkFactory{
 	 * 答：因为需要不同的工厂去实现，不同工厂生产产品都是不同的，我们要将创建具体类的决定权交给子类，
 	 * 	     因此这个方法需要是抽象方法，用于定制不同的需求的产品的生产。
 	 */
-	abstract Milk produceMilk(String type);
+	abstract IMilk produceMilk(String type);
 }
 
 //具体的工厂
 class YiliFactory extends MilkFactory{
 	@Override
-	Milk produceMilk(String type) {
-		Milk m = null;
-		if("hot".equals(type)){			//可以在生产方法中对产品进一步细分，不过说到底，还是只能生产牛奶
+	IMilk produceMilk(String type) {
+		IMilk m = null;
+		if("hot".equals(type)){			//可以在生产方法中对产品进一步细分(简单工厂)，不过说到底，还是只能生产牛奶
 			m = new HotYili();
 		}else{
 			m = new ColdYili();
@@ -57,13 +57,13 @@ class YiliFactory extends MilkFactory{
 
 
 //产品的接口
-interface Milk{
+interface IMilk{
 	abstract String getBrand();
 	
 }
 
 //具体产品(需要特定的工厂才能生产)
-class ColdYili implements Milk{
+class ColdYili implements IMilk{
 	private String brand = "夏日冰镇--伊利";
 	@Override
 	public String getBrand() {
@@ -71,7 +71,7 @@ class ColdYili implements Milk{
 	}
 }
 
-class HotYili implements Milk{
+class HotYili implements IMilk{
 	private String brand = "冬日温暖--伊利";
 	@Override
 	public String getBrand() {
@@ -80,7 +80,7 @@ class HotYili implements Milk{
 }
 
 //具体产品
-class Mengniu implements Milk{
+class Mengniu implements IMilk{
 	private String brand = "蒙牛";
 	@Override
 	public String getBrand() {
