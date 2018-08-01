@@ -45,8 +45,9 @@ interface Milk {
 	public abstract void sellMilk();
 }
 
+//具体的产品
 class Yili implements Milk{
-	String brand = "伊利";
+	private String brand = "伊利";
 	
 	public String getBrand(){
 		return this.brand;
@@ -57,8 +58,9 @@ class Yili implements Milk{
 	}
 }
 
+//具体的产品
 class Mengniu implements Milk{
-	String brand = "蒙牛";
+	private String brand = "蒙牛";
 
 	@Override
 	public String getBrand() {
