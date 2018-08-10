@@ -1,6 +1,7 @@
 package com.fja.io;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * IO流(Input Output):
@@ -65,6 +66,17 @@ public class FileClass {
 		file = new File("..\\..\\..\\E:\\README.md");
 		System.out.println("README.md是否存在："+file.exists());		//false
 		
-		//创建新的文件
+		//创建新的文件(createNewFile) 和创建新的文件夹(mkdir)
+		File dir = new File("E:\\aa");		
+		try {
+			dir.mkdir();				//在E盘下创建一个aa文件夹
+			if(dir.exists()){
+				//在aa文件夹里面创建aa.txt
+				File newfile = new File(dir.getAbsolutePath()+File.separator+"aa.txt");
+				newfile.createNewFile();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 }
