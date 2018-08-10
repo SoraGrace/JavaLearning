@@ -1,27 +1,27 @@
 package com.fja.thread;
 /**
- * ´´½¨Ïß³ÌµÄµÚ¶şÖÖ·½·¨£º
- * 	1). ×Ô¶¨ÒåÒ»¸öÀàÊµÏÖRunnable½Ó¿Ú
- *  2). ÊµÏÖRunnable½Ó¿ÚµÄrun()·½·¨£¬°ÑÏß³ÌµÄÈÎÎñ¶¨ÒåÔÚrun()·½·¨ÉÏ
- *  3). ´´½¨RunnableÊµÏÖÀàµÄ¶ÔÏó
- *  4). ´´½¨ThreadÀàµÄ¶ÔÏó£¬²¢ÇÒ°ÑRunnableÊµÏÖÀàµÄ¶ÔÏó´«µİ¸øThreadµÄ¹¹ÔìÆ÷
- *  5). µ÷ÓÃThread¶ÔÏóµÄstart()Æô¶¯Ïß³Ì 
+ * åˆ›å»ºçº¿ç¨‹çš„ç¬¬äºŒç§æ–¹æ³•ï¼š
+ * 	1). è‡ªå®šä¹‰ä¸€ä¸ªç±»å®ç°Runnableæ¥å£
+ *  2). å®ç°Runnableæ¥å£çš„run()æ–¹æ³•ï¼ŒæŠŠçº¿ç¨‹çš„ä»»åŠ¡å®šä¹‰åœ¨run()æ–¹æ³•ä¸Š
+ *  3). åˆ›å»ºRunnableå®ç°ç±»çš„å¯¹è±¡
+ *  4). åˆ›å»ºThreadç±»çš„å¯¹è±¡ï¼Œå¹¶ä¸”æŠŠRunnableå®ç°ç±»çš„å¯¹è±¡ä¼ é€’ç»™Threadçš„æ„é€ å™¨
+ *  5). è°ƒç”¨Threadå¯¹è±¡çš„start()å¯åŠ¨çº¿ç¨‹ 
  *  
- *  ÎÊ£ºÇëÎÊRunnableÊµÏÖÀàµÄ¶ÔÏóÊÇÏß³Ì¶ÔÏóÃ´£¿
- *  ´ğ£º²»ÊÇÏß³Ì¶ÔÏó£¬Ö»²»¹ıÊÇÊµÏÖÁËRunnable½Ó¿ÚµÄ¶ÔÏó¶øÒÑ£¬Ö»ÓĞThreadÀà»òÕßThreadµÄ×ÓÀàµÄ¶ÔÏó²ÅÊÇÏß³Ì¶ÔÏó¡£
+ *  é—®ï¼šè¯·é—®Runnableå®ç°ç±»çš„å¯¹è±¡æ˜¯çº¿ç¨‹å¯¹è±¡ä¹ˆï¼Ÿ
+ *  ç­”ï¼šä¸æ˜¯çº¿ç¨‹å¯¹è±¡ï¼Œåªä¸è¿‡æ˜¯å®ç°äº†Runnableæ¥å£çš„å¯¹è±¡è€Œå·²ï¼Œåªæœ‰Threadç±»æˆ–è€…Threadçš„å­ç±»çš„å¯¹è±¡æ‰æ˜¯çº¿ç¨‹å¯¹è±¡ã€‚
  *  
- *  ÎÊ£ºÎªÊ²Ã´Òª°ÑRunnableÊµÏÖÀàµÄ¶ÔÏó×÷ÎªÊµ²Î´«µİ¸øThread¶ÔÏó£¬×÷ÓÃÊÇÊ²Ã´?
- *  ´ğ£º×÷ÓÃ¾ÍÊÇ°ÑRunnableÊµÏÖÀàµÄ¶ÔÏóµÄrun()·½·¨×÷ÎªÏß³ÌµÄÈÎÎñ´úÂëÖ´ĞĞ¡£(Ïê¼û×îÏÂ·½Ô´Âë)
+ *  é—®ï¼šä¸ºä»€ä¹ˆè¦æŠŠRunnableå®ç°ç±»çš„å¯¹è±¡ä½œä¸ºå®å‚ä¼ é€’ç»™Threadå¯¹è±¡ï¼Œä½œç”¨æ˜¯ä»€ä¹ˆ?
+ *  ç­”ï¼šä½œç”¨å°±æ˜¯æŠŠRunnableå®ç°ç±»çš„å¯¹è±¡çš„run()æ–¹æ³•ä½œä¸ºçº¿ç¨‹çš„ä»»åŠ¡ä»£ç æ‰§è¡Œã€‚(è¯¦è§æœ€ä¸‹æ–¹æºç )
  *  
- *  Á½ÖÖ´´½¨Ïß³ÌµÄ·½·¨ÖĞ£¬ÍÆ¼öÊ¹ÓÃµÚ¶şÖÖ
- *  Ô­Òò£ºÒòÎªjavaÊÇµ¥¼Ì³Ğ¡¢¶àÊµÏÖµÄ¡£½Ó¿ÚÒªÁé»îºÜ¶à£¬ÔÚÊµÏÖRunnable½Ó¿ÚµÄÍ¬Ê±£¬¿ÉÒÔ¼Ì³ĞÆäËûµÄÀà¡£
+ *  ä¸¤ç§åˆ›å»ºçº¿ç¨‹çš„æ–¹æ³•ä¸­ï¼Œæ¨èä½¿ç”¨ç¬¬äºŒç§
+ *  åŸå› ï¼šå› ä¸ºjavaæ˜¯å•ç»§æ‰¿ã€å¤šå®ç°çš„ã€‚æ¥å£è¦çµæ´»å¾ˆå¤šï¼Œåœ¨å®ç°Runnableæ¥å£çš„åŒæ—¶ï¼Œå¯ä»¥ç»§æ‰¿å…¶ä»–çš„ç±»ã€‚
  */
 public class ImpRunnable {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MyRunnable r0 = new MyRunnable();
-		Thread t0 = new Thread(r0,"Ìúµ°");
+		Thread t0 = new Thread(r0,"é“è›‹");
 		t0.start();
 		for (int i = 0; i < 100; i++) {
 			System.out.println(Thread.currentThread().getName()+": "+i);
@@ -39,8 +39,8 @@ class MyRunnable implements Runnable{
 		}
 		
 		/**
-		 * ÎÊ£º Thread.currentThread()·µ»ØµÄ¶ÔÏóÊÇ·ñµÈÓÚthis
-		 * ´ğ£º²»µÈÓÚ£¬Thread.currentThread()·µ»ØµÄÊÇt0£¬¶øthisÖ¸ÏòµÄÊÇr0
+		 * é—®ï¼š Thread.currentThread()è¿”å›çš„å¯¹è±¡æ˜¯å¦ç­‰äºthis
+		 * ç­”ï¼šä¸ç­‰äºï¼ŒThread.currentThread()è¿”å›çš„æ˜¯t0ï¼Œè€ŒthisæŒ‡å‘çš„æ˜¯r0
 		 */
 		System.out.println(Thread.currentThread());
 		System.out.println(this);
@@ -48,10 +48,10 @@ class MyRunnable implements Runnable{
 }
 
 
-/*ThreadµÄrun()·½·¨µÄÔ´Âë£º
+/*Threadçš„run()æ–¹æ³•çš„æºç ï¼š
  	@Override
     public void run() {
-        if (target != null) {		//ÕâºÍtarget¾ÍÊÇÎÒÃÇ´«½øÈ¥µÄRunnableÊµÏÖÀàµÄ¶ÔÏó
+        if (target != null) {		//è¿™å’Œtargetå°±æ˜¯æˆ‘ä»¬ä¼ è¿›å»çš„Runnableå®ç°ç±»çš„å¯¹è±¡
             target.run();
         }
     }

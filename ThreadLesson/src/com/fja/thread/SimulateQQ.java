@@ -1,10 +1,10 @@
 package com.fja.thread;
 /**
- * Ä£ÄâQQÊÓÆµºÍÁÄÌìÍ¬Ê±Ö´ĞĞ
+ * æ¨¡æ‹ŸQQè§†é¢‘å’ŒèŠå¤©åŒæ—¶æ‰§è¡Œ
  */
 public class SimulateQQ {
 	public static void main(String[] args) {
-		//Ìå»áÁ½¸öÏß³ÌÕù¶á×ÊÔ´
+		//ä½“ä¼šä¸¤ä¸ªçº¿ç¨‹äº‰å¤ºèµ„æº
 		Talk t = new Talk();
 		t.start();
 		
@@ -18,7 +18,7 @@ class Video extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true){
-			System.out.println("ÊÓÆµÊÓÆµÊÓÆµÊÓÆµ");
+			System.out.println("è§†é¢‘è§†é¢‘è§†é¢‘è§†é¢‘");
 		}
 	}
 }
@@ -28,7 +28,7 @@ class Talk extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true){
-			System.out.println("hi,ÄãºÃ£¡");
+			System.out.println("hi,ä½ å¥½ï¼");
 		}
 	}
 }

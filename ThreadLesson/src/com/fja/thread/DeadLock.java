@@ -1,21 +1,21 @@
 package com.fja.thread;
 /**
- * ËÀËøÏÖÏó£º
- * ³öÏÖµÄ¸ù±¾Ô­Òò
- * 1). ´æÔÚÁ½¸ö»òÕßÁ½¸öÒÔÉÏµÄÏß³Ì
- * 2). ´æÔÚÁ½¸ö»òÕßÁ½¸öÒÔÉÏµÄ¹²Ïí×ÊÔ´
+ * æ­»é”ç°è±¡ï¼š
+ * å‡ºç°çš„æ ¹æœ¬åŸå› 
+ * 1). å­˜åœ¨ä¸¤ä¸ªæˆ–è€…ä¸¤ä¸ªä»¥ä¸Šçš„çº¿ç¨‹
+ * 2). å­˜åœ¨ä¸¤ä¸ªæˆ–è€…ä¸¤ä¸ªä»¥ä¸Šçš„å…±äº«èµ„æº
  * 
- * ËÀËøÏÖÏóÎŞ·¨½â¾ö£¬Ö»ÄÜÈ¥±ÜÃâ¡£
+ * æ­»é”ç°è±¡æ— æ³•è§£å†³ï¼Œåªèƒ½å»é¿å…ã€‚
  */
 public class DeadLock {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		MyThread t0 = new MyThread("Ìúµ°");
-		MyThread t1 = new MyThread("¹·Ê£");
+		MyThread t0 = new MyThread("é“è›‹");
+		MyThread t1 = new MyThread("ç‹—å‰©");
 		t0.start();
 		t1.start();
-		//ÓĞÒ»¶¨¼¸ÂÊÌúµ°ÄÃµ½Ò£¿ØÆ÷£¬¹·Ê£ÄÃµ½µç³Ø£¬Ë«·½Ïà»¥µÈ´ı¶Ô·½ÊÍ·ÅËø£¬´Ó¶øÔì³ÉËÀËøÏÖÏó¡£
+		//æœ‰ä¸€å®šå‡ ç‡é“è›‹æ‹¿åˆ°é¥æ§å™¨ï¼Œç‹—å‰©æ‹¿åˆ°ç”µæ± ï¼ŒåŒæ–¹ç›¸äº’ç­‰å¾…å¯¹æ–¹é‡Šæ”¾é”ï¼Œä»è€Œé€ æˆæ­»é”ç°è±¡ã€‚
 	}
 }
 
@@ -28,18 +28,18 @@ class MyThread extends Thread{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		if("Ìúµ°".equals(currentThread().getName())){
-			synchronized("Ò£¿ØÆ÷"){
-				System.out.println("Ìúµ°ÄÃµ½ÁËÒ£¿ØÆ÷£¬×¼±¸È¥ÄÃµç³Ø£¡£¡");
-				synchronized("µç³Ø"){
-					System.out.println("Ìúµ°ÄÃµ½ÁËÒ£¿ØÆ÷ºÍµç³Ø£¬³É¹¦Æô¶¯ÁË¿Õµ÷¡£");
+		if("é“è›‹".equals(currentThread().getName())){
+			synchronized("é¥æ§å™¨"){
+				System.out.println("é“è›‹æ‹¿åˆ°äº†é¥æ§å™¨ï¼Œå‡†å¤‡å»æ‹¿ç”µæ± ï¼ï¼");
+				synchronized("ç”µæ± "){
+					System.out.println("é“è›‹æ‹¿åˆ°äº†é¥æ§å™¨å’Œç”µæ± ï¼ŒæˆåŠŸå¯åŠ¨äº†ç©ºè°ƒã€‚");
 				}
 			}
-		}else if("¹·Ê£".equals(currentThread().getName())){
-			synchronized("µç³Ø"){
-				System.out.println("¹·Ê£ÄÃµ½ÁËµç³Ø£¬×¼±¸È¥ÄÃÒ£¿ØÆ÷£¡£¡");
-				synchronized("Ò£¿ØÆ÷"){
-					System.out.println("¹·Ê£ÄÃµ½ÁËÒ£¿ØÆ÷ºÍµç³Ø£¬³É¹¦Æô¶¯ÁË¿Õµ÷¡£");
+		}else if("ç‹—å‰©".equals(currentThread().getName())){
+			synchronized("ç”µæ± "){
+				System.out.println("ç‹—å‰©æ‹¿åˆ°äº†ç”µæ± ï¼Œå‡†å¤‡å»æ‹¿é¥æ§å™¨ï¼ï¼");
+				synchronized("é¥æ§å™¨"){
+					System.out.println("ç‹—å‰©æ‹¿åˆ°äº†é¥æ§å™¨å’Œç”µæ± ï¼ŒæˆåŠŸå¯åŠ¨äº†ç©ºè°ƒã€‚");
 				}
 			}
 		}

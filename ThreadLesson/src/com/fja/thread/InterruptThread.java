@@ -1,13 +1,13 @@
 package com.fja.thread;
 /**
- * ÖĞ¶ÏÏß³Ì£º
- * 1). Í£Ö¹Ò»¸öÏß³Ì£¬Ò»°ã»áÍ¨¹ıÒ»¸ö±äÁ¿È¥¿ØÖÆ¡£
- * 2). Èç¹ûĞèÒªÍ£Ö¹Ò»¸öµÈ´ı×´Ì¬ÏÂµÄÏß³Ì£¬ÎÒÃÇĞèÒªÍ¨¹ı±äÁ¿ÅäºÏnotify()»òÕßinterrupt()À´Ê¹ÓÃ¡£
+ * ä¸­æ–­çº¿ç¨‹ï¼š
+ * 1). åœæ­¢ä¸€ä¸ªçº¿ç¨‹ï¼Œä¸€èˆ¬ä¼šé€šè¿‡ä¸€ä¸ªå˜é‡å»æ§åˆ¶ã€‚
+ * 2). å¦‚æœéœ€è¦åœæ­¢ä¸€ä¸ªç­‰å¾…çŠ¶æ€ä¸‹çš„çº¿ç¨‹ï¼Œæˆ‘ä»¬éœ€è¦é€šè¿‡å˜é‡é…åˆnotify()æˆ–è€…interrupt()æ¥ä½¿ç”¨ã€‚
  * 
- * notify()ºÍinterrupt()µÄÇø±ğ
- * 1).notify()·½·¨»½ĞÑÏß³Ì±È½ÏÎÂÈá£¬interrupt()»½ĞÑÏß³Ì±È½Ï´Ö±©£¬Ç¿ÖÆÇå³ıÖ¸¶¨Ïß³ÌµÄµÈ´ı×´Ì¬£¬Ïß³Ì»áÊÕµ½Ò»¸öÒì³£
- * 2).notify()·½·¨ÊÇËø¶ÔÏóµ÷ÓÃµÄ¶øinterrupt()ÊÇÏß³Ì¶ÔÏóµ÷ÓÃµÄ£¬Ò²¾ÍÊÇËµnotify()»½ĞÑµÄÏß³ÌÊÇ²»È·¶¨µÄ£¬
- * 	  interrupt()»½ĞÑµÄ¾ÍÊÇµ÷ÓÃ¸Ã·½·¨µÄÏß³Ì¡£
+ * notify()å’Œinterrupt()çš„åŒºåˆ«
+ * 1).notify()æ–¹æ³•å”¤é†’çº¿ç¨‹æ¯”è¾ƒæ¸©æŸ”ï¼Œinterrupt()å”¤é†’çº¿ç¨‹æ¯”è¾ƒç²—æš´ï¼Œå¼ºåˆ¶æ¸…é™¤æŒ‡å®šçº¿ç¨‹çš„ç­‰å¾…çŠ¶æ€ï¼Œçº¿ç¨‹ä¼šæ”¶åˆ°ä¸€ä¸ªå¼‚å¸¸
+ * 2).notify()æ–¹æ³•æ˜¯é”å¯¹è±¡è°ƒç”¨çš„è€Œinterrupt()æ˜¯çº¿ç¨‹å¯¹è±¡è°ƒç”¨çš„ï¼Œä¹Ÿå°±æ˜¯è¯´notify()å”¤é†’çš„çº¿ç¨‹æ˜¯ä¸ç¡®å®šçš„ï¼Œ
+ * 	  interrupt()å”¤é†’çš„å°±æ˜¯è°ƒç”¨è¯¥æ–¹æ³•çš„çº¿ç¨‹ã€‚
  */
 public class InterruptThread extends Thread{
 	boolean flag = true;
@@ -16,7 +16,7 @@ public class InterruptThread extends Thread{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		InterruptThread t = new InterruptThread("¹·ÍŞ");
+		InterruptThread t = new InterruptThread("ç‹—å¨ƒ");
 		t.setPriority(10);
 		t.start();
 		for (int i = 0; i < 100; ) {
@@ -24,9 +24,9 @@ public class InterruptThread extends Thread{
 				sleep(20);
 				i++;
 				System.out.println(currentThread().getName()+":"+i);
-				//ÔÚ50µÄÊ±ºòÖÕÖ¹¹·ÍŞÏß³Ì
+				//åœ¨50çš„æ—¶å€™ç»ˆæ­¢ç‹—å¨ƒçº¿ç¨‹
 				if(i==50){
-					//t.notify();			//Èç¹ûÃ»ÓĞnotify()»òÕßinterrupt()¹·ÍŞÏß³Ì½«Ò»Ö±µÈ´ı£¬³ÌĞòÎŞ·¨½áÊø¡£
+					//t.notify();			//å¦‚æœæ²¡æœ‰notify()æˆ–è€…interrupt()ç‹—å¨ƒçº¿ç¨‹å°†ä¸€ç›´ç­‰å¾…ï¼Œç¨‹åºæ— æ³•ç»“æŸã€‚
 					t.interrupt();
 					t.flag = false;
 				}
@@ -42,8 +42,8 @@ public class InterruptThread extends Thread{
 				try {
 					this.wait();
 				} catch (InterruptedException e) {
-					e.printStackTrace();			//ÕâÀï»á½ÓÊÕµ½interrupt()·½·¨Ç¿ÖÆÖĞ¶ÏÏß³ÌµÄÒì³£
-					System.out.println(currentThread().getName()+"±»Ç¿ÖÆÖÕÖ¹ÁË");
+					e.printStackTrace();			//è¿™é‡Œä¼šæ¥æ”¶åˆ°interrupt()æ–¹æ³•å¼ºåˆ¶ä¸­æ–­çº¿ç¨‹çš„å¼‚å¸¸
+					System.out.println(currentThread().getName()+"è¢«å¼ºåˆ¶ç»ˆæ­¢äº†");
 				}
 				if(flag){
 					i++;

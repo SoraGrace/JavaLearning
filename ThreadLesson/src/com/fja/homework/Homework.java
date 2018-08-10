@@ -1,22 +1,22 @@
 package com.fja.homework;
 /**
- * ×÷Òµ£º
- * ÓĞÒ»¸öË®³Ø£¬Ë®³ØµÄÈİÁ¿ÊÇ¹Ì¶¨µÄ500L£¬Ò»±ßÊÇ½øË®¿Ú£¬Ò»±ßÊÇ³öË®¿Ú¡£ÒªÇó½øË®Óë·ÀË®²»ÄÜÍ¬Ê±½øĞĞ¡£
- * Ë®³ØÒ»µ©ÂúË®ÁË²»ÄÜ¼ÌĞø×¢Ë®£¬Ò»µ©·Å¿ÕÁË£¬²»¿ÉÒÔ¼ÌĞø·ÅË®¡£½øË®µÄËÙ¶ÈÊÇ5L/s,·ÅË®µÄËÙ¶ÈÊÇ2L/s¡£ 
+ * ä½œä¸šï¼š
+ * æœ‰ä¸€ä¸ªæ°´æ± ï¼Œæ°´æ± çš„å®¹é‡æ˜¯å›ºå®šçš„500Lï¼Œä¸€è¾¹æ˜¯è¿›æ°´å£ï¼Œä¸€è¾¹æ˜¯å‡ºæ°´å£ã€‚è¦æ±‚è¿›æ°´ä¸é˜²æ°´ä¸èƒ½åŒæ—¶è¿›è¡Œã€‚
+ * æ°´æ± ä¸€æ—¦æ»¡æ°´äº†ä¸èƒ½ç»§ç»­æ³¨æ°´ï¼Œä¸€æ—¦æ”¾ç©ºäº†ï¼Œä¸å¯ä»¥ç»§ç»­æ”¾æ°´ã€‚è¿›æ°´çš„é€Ÿåº¦æ˜¯5L/s,æ”¾æ°´çš„é€Ÿåº¦æ˜¯2L/sã€‚ 
  */
 public class Homework {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Pool p = new Pool();
-		Affusion a = new Affusion("×¢Ë®Ïß³Ì", p);
-		Discharge d = new Discharge("·ÅË®Ïß³Ì", p);
+		Affusion a = new Affusion("æ³¨æ°´çº¿ç¨‹", p);
+		Discharge d = new Discharge("æ”¾æ°´çº¿ç¨‹", p);
 		a.start();
 		d.start();
 	}
 }
 
-//×¢Ë®Ïß³Ì
+//æ³¨æ°´çº¿ç¨‹
 class Affusion extends Thread{
 	Pool p;
 	
@@ -27,13 +27,13 @@ class Affusion extends Thread{
 	
 	@Override
 	public void run() {
-		//²»Í£µÄ×¢Ë®
+		//ä¸åœçš„æ³¨æ°´
 		while(true){
 			synchronized(p){
-				if(p.water == 500){		//ÅĞ¶ÏË®³ØµÄË®ÊÇ·ñ×¢Âú
+				if(p.water == 500){		//åˆ¤æ–­æ°´æ± çš„æ°´æ˜¯å¦æ³¨æ»¡
 					try {
-						p.notify();     //»½ĞÑ·ÅË®Ïß³Ì
-						p.wait();		//½øÈëÏß³Ì³ØĞİÃß
+						p.notify();     //å”¤é†’æ”¾æ°´çº¿ç¨‹
+						p.wait();		//è¿›å…¥çº¿ç¨‹æ± ä¼‘çœ 
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}			
@@ -43,8 +43,8 @@ class Affusion extends Thread{
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					p.water += 5;	//Ã¿Ãë5L
-					System.out.println(currentThread().getName()+":Ä¿Ç°Ë®³ØÖĞµÄË®ÊÇ"+p.water+"L");
+					p.water += 5;	//æ¯ç§’5L
+					System.out.println(currentThread().getName()+":ç›®å‰æ°´æ± ä¸­çš„æ°´æ˜¯"+p.water+"L");
 				}
 			}
 		}
@@ -52,7 +52,7 @@ class Affusion extends Thread{
 	
 }
 
-//·ÅË®Ïß³Ì
+//æ”¾æ°´çº¿ç¨‹
 class Discharge extends Thread{
 	Pool p;
 	
@@ -63,21 +63,21 @@ class Discharge extends Thread{
 	
 	@Override
 	public void run() {
-		//²»Í£µÄ·ÀË®
+		//ä¸åœçš„é˜²æ°´
 		while(true){
 			synchronized(p){
-				if(p.water > 0){		//ÅĞ¶ÏË®³ØµÄË®ÊÇ·ñ×¢Âú
+				if(p.water > 0){		//åˆ¤æ–­æ°´æ± çš„æ°´æ˜¯å¦æ³¨æ»¡
 					try {
-						sleep(1000);	//Ã¿Ãë2L
+						sleep(1000);	//æ¯ç§’2L
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					p.water -= 2;
-					System.out.println(currentThread().getName()+":Ä¿Ç°Ë®³ØÖĞµÄË®ÊÇ"+p.water+"L");
+					System.out.println(currentThread().getName()+":ç›®å‰æ°´æ± ä¸­çš„æ°´æ˜¯"+p.water+"L");
 				}else{
 					try {
-						p.notify();     //»½ĞÑ·ÅË®Ïß³Ì
-						p.wait();		//½øÈëÏß³Ì³ØĞİÃß
+						p.notify();     //å”¤é†’æ”¾æ°´çº¿ç¨‹
+						p.wait();		//è¿›å…¥çº¿ç¨‹æ± ä¼‘çœ 
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -88,7 +88,7 @@ class Discharge extends Thread{
 	
 }
 
-//Ë®³Ø
+//æ°´æ± 
 class Pool {
 	int water = 0;
 }
