@@ -64,5 +64,7 @@ public class FileClass {
 		//【注意】如果程序和资源不是在同一个盘符下的时候，是无法通过相对路径获取File对象的。
 		file = new File("..\\..\\..\\E:\\README.md");
 		System.out.println("README.md是否存在："+file.exists());		//false
+		
+		//创建新的文件
 	}
 }
