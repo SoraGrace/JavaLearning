@@ -1,6 +1,7 @@
 package com.fja.io;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 /**
@@ -66,6 +67,19 @@ public class FileClass {
 		file = new File("..\\..\\..\\E:\\README.md");
 		System.out.println("README.md是否存在："+file.exists());		//false
 		
+		
+		
+		
+		//File类常用方法
+		/**
+		 * 重命名文件(renameTo) 【注意】如果renameTo的文件和目标文件是在同一级目录下面，则renameTo的作用等于重命名
+		 * 如果renameTo的文件和目标文件不在同一级目录下，则renameTo的作用等同于剪切，且无法对于文件夹生效
+		 */
+		
+		file = new File("E:\\README.md");
+		File dest = new File("E:\\$README.md");
+		file.renameTo(dest);
+		
 		//创建新的文件(createNewFile) 和创建新的文件夹(mkdir)
 		File dir = new File("E:\\aa");		
 		try {
@@ -77,6 +91,45 @@ public class FileClass {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
+		}
+		
+		//列出目录下面的所有文件(listFiles)
+		File[] files = dir.listFiles();
+		for(File f:files){
+			System.out.println(f.getName()); 		//aa.txt
+		}
+		
+		
+		
+		/**
+		 * 文件名过滤器(FilenameFilter)配合listFiles()方法使用，返回当前目录中符合过滤条件的文件或者子目录,对文件使用返回null
+		 * 当传入过滤器之后listFiles()方法每获得一个文件就会调用accept()方法，当accept()方法返回true就将该文件放入返回的数组中
+		 */
+		files = dir.listFiles(new MyFileFilter());
+		for(File f:files){
+			System.out.println(f.getName()); 		//aa.txt
+		}
+		
+		//返回目录下面所有文件和子目录的名称
+		String[] names = dir.list();
+		for(String name:names){
+			System.out.println(name); 		//aa.txt
+		}
+		//list()方法也可以传入一个过滤器。也是重写过滤器的accept方法
+		names = dir.list(new MyFileFilter());
+		for(String name:names){
+			System.out.println(name); 		//aa.txt
+		}
+	}
+}
+
+class MyFileFilter implements FilenameFilter{
+	/**
+	 * @param dir {File} 目标目录
+	 * @param name {String} 文件名 
+	 */
+	@Override
+	public boolean accept(File dir, String name) {
+		return name.endsWith(".txt");			//将后缀是txt的文件返回
 	}
 }
