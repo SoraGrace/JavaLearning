@@ -25,11 +25,12 @@ public class CopyPicture {
 		FileOutputStream fos = new FileOutputStream(dest);
 		byte[] buffer = new byte[1024];
 		int len = 0;
-		while(len!=-1){					//边读边写
-			len = fis.read(buffer);
-			fos.write(buffer);
+		while((len = fis.read(buffer))!=-1){					//边读边写
+			//因为buffer不会清空，因此每次读了多少数据就要写多少数据，fos.write(buffer)会导致重复复制倒数第二次的一部分数据。
+			fos.write(buffer,0,len);	
 		}
-		fis.close();
+		//【细节】释放资源的顺序，先开后关，后开先关
 		fos.close();
+		fis.close();
 	}
 }

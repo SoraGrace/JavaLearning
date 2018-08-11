@@ -53,7 +53,7 @@ public class FileOutputstream {
 	//通过字节数组存放需要写出的字节数据
 	static void baseEnhance() throws IOException{
 		File file = new File("E:\\README.md");
-		//【细节】建立输出通道的时候，如果目标文件不存在的时候会自动创建目标文件。使用FileOutputStream写入数据的时候，如果目标文件应存在，会先清空目标文件中的数据。
+		//【细节】建立输出通道的时候，如果目标文件不存在的时候会自动创建目标文件。使用FileOutputStream写入数据的时候，如果目标文件已经存在，会先清空目标文件中的数据。
 		FileOutputStream fos = new FileOutputStream(file);
 		String data = "hello world";
 		//通过getBytes()方法将字符串变成字节数组，传入到write()方法中去
@@ -61,7 +61,12 @@ public class FileOutputstream {
 		fos.close();
 	}
 	
-	//追加数据,不清空目标文件原有的内容,使用FileOutputStream(File file,boolean flag)构造函数
+	 /**
+	  * 追加数据,不清空目标文件原有的内容,使用FileOutputStream(File file,boolean flag)构造函数 
+	  * 当然，上述的情况只会发生在new FileOutputStream对象的时候。因为FileOutputStream对象维护着一个内容追加位置的指针，每次new的时候都会将指针指向开始的位置
+	  * 因此当你只new了一个 FileOutputStream对象的时候，每次write()操作都不会清空目标中原有的数据，指针会移动到最后一次添加数据的位置。
+	  * 同理，当你每次输出都重新new FileOutputStream对象，或者源文件本身已经存在内容的时候，还想要追加数据，就必须要用FileOutputStream(File file,boolean flag)构造函数
+	  */ 
 	static void appendContent() throws IOException{
 		File file = new File("E:\\README.md");
 		//如果第二个参数是true,则将字节写入文件的末尾，而不是写入文件的开始处
