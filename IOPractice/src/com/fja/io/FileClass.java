@@ -83,7 +83,7 @@ public class FileClass {
 		//创建新的文件(createNewFile) 和创建新的文件夹(mkdir)
 		File dir = new File("E:\\aa");		
 		try {
-			dir.mkdir();				//在E盘下创建一个aa文件夹
+			dir.mkdir();							//在E盘下创建一个aa文件夹
 			if(dir.exists()){
 				//在aa文件夹里面创建aa.txt
 				File newfile = new File(dir.getAbsolutePath()+File.separator+"aa.txt");
@@ -113,12 +113,12 @@ public class FileClass {
 		//返回目录下面所有文件和子目录的名称
 		String[] names = dir.list();
 		for(String name:names){
-			System.out.println(name); 		//aa.txt
+			System.out.println(name); 				//aa.txt
 		}
 		//list()方法也可以传入一个过滤器。也是重写过滤器的accept方法
 		names = dir.list(new MyFileFilter());
 		for(String name:names){
-			System.out.println(name); 		//aa.txt
+			System.out.println(name); 				//aa.txt
 		}
 	}
 }
@@ -130,6 +130,6 @@ class MyFileFilter implements FilenameFilter{
 	 */
 	@Override
 	public boolean accept(File dir, String name) {
-		return name.endsWith(".txt");			//将后缀是txt的文件返回
+		return name.endsWith(".txt");				//将后缀是txt的文件返回
 	}
 }
