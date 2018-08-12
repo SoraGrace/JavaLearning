@@ -33,13 +33,13 @@ public class CopyPicture {
 		}finally{
 			//【细节】释放资源的顺序，先开后关，后开先关。
 			try {
-				fos.close();
+				if(fos!=null)fos.close();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}finally{
 				//要让输入流和输出流释放资源的语句有机会执行，因此不能写在一个try/catch块中
 				try {
-					fis.close();
+					if(fis!=null)fis.close();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
