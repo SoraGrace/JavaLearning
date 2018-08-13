@@ -89,7 +89,54 @@ public class Array {
 		c0.removeAll(c1);				
 		System.out.println(c0);
 		
-		//retiansAll()
+		//retianAll()保留调用集合中与传入集合的交集元素，调用集合中的其他元素删除
+		c0.add("铁蛋");//c0--->[1, 3.14, 铁蛋]        c1--->[abc, 铁蛋]
+		c0.retainAll(c1);
+		System.out.println(c0);//[铁蛋]
 		
+		//isEmpty()    判断集合是否为空
+		//c0--->[铁蛋]
+		System.out.println("c0集合是否为空： "+c0.isEmpty());
+		
+		
+		//contains() 判断集合中是否存在某一个元素
+		/**
+		 * 问：为什么89757不存在？ 
+		 * 答：contains()方法的底层实现其实是调用传入参数的equals方法和集合内的元素进行比对，
+		 * 	    在上述代码中，传入的对象new Person("89757","铁蛋")的内存地址和集合中的new Person("89757","铁蛋")不一样
+		 *    因此集合判断不存在该元素
+		 *    
+		 * 问：如果需要集合判断，只要是idCode一样的对象就判断该对象存在于集合中，应该如何实现？
+		 * 答：重写对象的equals方法
+		 */
+		c0.clear();
+		c0.add(new Person("89757","铁蛋"));
+		boolean existFlag = c0.contains(new Person("89757","铁蛋"));		
+		System.out.println("idCode是89757的人是否存在： "+existFlag);
+		
+		
+		//toArray()方法会将集合内的数据放入一个Object[]数组中
+		Object[] o = c1.toArray();		//c1--->[abc, 铁蛋]
+		for(int i = 0;i<o.length;i++){
+			System.out.print((String)o[i]+",");			//类型需要强转
+		}
+	}
+}
+
+
+class Person{
+	String idCode;
+	String name;
+	public Person(String idCode, String name) {
+		super();
+		this.idCode = idCode;
+		this.name = name;
+	}
+	/**
+	 * 重写Person类的equals方法，变为比较idCode的值，只要相等就返回true
+	 */
+	@Override
+	public boolean equals(Object o) {			
+		return ((Person)o).idCode == this.idCode;
 	}
 }
