@@ -32,6 +32,13 @@ public class Hashset {
 		System.out.println(hs);	//[{姓名： 狗剩}, {姓名： 铁蛋}]
 		
 		//因为我们重写了hashCode方法和equals方法，所以只要是id相同HashSet就会认为两个元素是重复元素
+		
+		//HashCode默认情况下表示的是内存地址
+		String str = "狗剩";
+		String _str = new String("狗剩");
+		System.out.println(str==_str);						//false
+		System.out.println(str.hashCode()==_str.hashCode());//true
+		//上述情况，内存地址不同，hashCode相同，是因为String类重写了hasCode方法，只要两个字符串的内同一致，则hasCode方法返回值一致
 	}
 
 }
