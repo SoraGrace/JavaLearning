@@ -7,13 +7,15 @@ package com.fja.practice.rebuild;
  */
 public class RebuildBinaryTree {
 	public TreeNode Solution(int[] pre,int[] in){
+		if(pre.length!=in.length)return null;
 		//根节点：
 		TreeNode root = new TreeNode(pre[0]);
 		
-		return rebuild(root,pre,in,-1,-1,-1,-1);
+		root = rebuild(root,pre,in,-1,-1,-1);
+		return root;
 	}
 	//右子树设最大值，左子树设最小值
-	private TreeNode rebuild(TreeNode root,int[] pre,int[] in,int parent_in_index,int parent_pre_index,int maxIndex,int minIndex){
+	private TreeNode rebuild(TreeNode root,int[] pre,int[] in,int parent_in_index,int maxIndex,int minIndex){
 		System.out.println("----"+root.val);
 		int pre_index = 0;
 		int in_index = 0;
@@ -27,9 +29,8 @@ public class RebuildBinaryTree {
 		}
 		int leftTreeLength = 0;
 		int rightTreeLength = 0;
-		String direct = null;
 		//根节点
-		if(parent_in_index==-1&&parent_pre_index==-1){
+		if(parent_in_index==-1){
 			leftTreeLength = in_index;
 			rightTreeLength = in.length-1-in_index;
 		}else{
@@ -46,17 +47,19 @@ public class RebuildBinaryTree {
 		if(leftTreeLength>0){
 			int max = 0;
 			int min = 0;
-			if(parent_in_index>in_index){
+			if(parent_in_index>in_index||parent_in_index==-1){
 				max = in_index-1;			//可以取到
-			}else if(parent_in_index==-1){
-				max = in_index-1;
 			}else{
 				max = in_index-1;
 				min = parent_in_index+1;
 			}
-			int value = pre[pre_index+1];
-			System.out.println(value);
-			root.left = rebuild(new TreeNode(value),pre,in,in_index,pre_index,max,min);
+			if(pre_index+1>in.length-1){
+				root.left = null;
+			}else{
+				int value = pre[pre_index+1];
+				System.out.println(value);
+				root.left = rebuild(new TreeNode(value),pre,in,in_index,max,min);
+			}
 		}else{
 			root.left = null;
 		}
@@ -66,16 +69,18 @@ public class RebuildBinaryTree {
 			if(parent_in_index>in_index){
 				min = in_index+1;
 				max = parent_in_index-1;
-			}else if(parent_in_index==-1){
-				min = in_index+1;
-				max = in.length-1;
 			}else{
 				min = in_index+1;
 				max = in.length-1;
 			}
-			int value = pre[pre_index+leftTreeLength+1];
-			System.out.println(value);
-			root.right = rebuild(new TreeNode(value),pre,in,in_index,pre_index,max,min);
+			
+			if(pre_index+leftTreeLength+1>in.length-1){
+				root.right = null;
+			}else{
+				int value = pre[pre_index+leftTreeLength+1];
+				System.out.println(value);
+				root.right = rebuild(new TreeNode(value),pre,in,in_index,max,min);
+			}
 		}else{
 			root.right = null;
 		}
