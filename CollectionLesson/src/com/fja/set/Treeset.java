@@ -1,4 +1,4 @@
-package com.fja.list;
+package com.fja.set;
 
 import java.util.Comparator;
 import java.util.TreeSet;
