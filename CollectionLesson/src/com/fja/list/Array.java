@@ -3,6 +3,7 @@ package com.fja.list;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * 数组：存储同一种数据类型的集合容器 
@@ -120,6 +121,21 @@ public class Array {
 		for(int i = 0;i<o.length;i++){
 			System.out.print((String)o[i]+",");			//类型需要强转
 		}
+		
+		
+		//iterator()返回一个迭代器
+		Iterator it = c1.iterator();
+		//hasNext()方法判断迭代器维护的游标是否指向对象
+		while(it.hasNext()){
+			//next()方法返回迭代器的游标指向的对象
+			System.out.println("元素： "+it.next());
+			//删除之前迭代的元素，配合hasNext()和next()方法相当于清空集合
+			it.remove();
+		}
+		//c1已经被清空
+		System.out.println(c1);
+		//当没有下一个元素，然后继续使用next()方法会报NoSuchElementException
+		it.next();
 	}
 }
 
