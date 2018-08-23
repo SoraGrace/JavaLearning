@@ -28,8 +28,8 @@ class Affusion extends Thread{
 	@Override
 	public void run() {
 		//不停的注水
-		while(true){
-			synchronized(p){
+		synchronized(p){
+			while(true){
 				if(p.water == 500){		//判断水池的水是否注满
 					try {
 						p.notify();     //唤醒放水线程
@@ -63,9 +63,9 @@ class Discharge extends Thread{
 	
 	@Override
 	public void run() {
-		//不停的防水
-		while(true){
-			synchronized(p){
+		//不停的放水
+		synchronized(p){
+			while(true){
 				if(p.water > 0){		//判断水池的水是否注满
 					try {
 						sleep(1000);	//每秒2L
