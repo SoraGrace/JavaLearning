@@ -7,33 +7,80 @@ package com.fja.practice.rebuild;
  */
 public class RebuildBinaryTree {
 	public TreeNode Solution(int[] pre,int[] in){
+		if(pre.length!=in.length)return null;
 		//根节点：
 		TreeNode root = new TreeNode(pre[0]);
-		return rebuild(root,pre,in,in.length);
+		
+		root = rebuild(root,pre,in,-1,-1,-1);
+		return root;
 	}
-	
-	private TreeNode rebuild(TreeNode root,int[] pre,int[] in,int total){
-		System.out.println(root.val);
-		int root_pre_index = 0;
-		int root_in_index = 0;
+	//右子树设最大值，左子树设最小值
+	private TreeNode rebuild(TreeNode root,int[] pre,int[] in,int parent_in_index,int maxIndex,int minIndex){
+		System.out.println("----"+root.val);
+		int pre_index = 0;
+		int in_index = 0;
 		for(int i = 0;i<pre.length;i++){
 			if(pre[i]==root.val){
-				root_pre_index = i;
+				pre_index = i;
 			}
 			if(in[i]==root.val){
-				root_in_index = i;
+				in_index = i;
 			}
 		}
-		int leftTreeCount = root_in_index;
-		int rightTreeCount = total-leftTreeCount-1;
-		if(total>0&&total>leftTreeCount&&leftTreeCount>=0){
-			root.left = rebuild(new TreeNode(pre[root_pre_index+1]),pre,in,leftTreeCount);
+		int leftTreeLength = 0;
+		int rightTreeLength = 0;
+		//根节点
+		if(parent_in_index==-1){
+			leftTreeLength = in_index;
+			rightTreeLength = in.length-1-in_index;
+		}else{
+			if(parent_in_index>in_index&&in_index>=0){					//左子树
+				leftTreeLength = in_index-minIndex;							//节点有左子树
+				rightTreeLength = maxIndex-in_index;
+			}else if(in_index>0){									//右子树
+				rightTreeLength = maxIndex-in_index;
+				leftTreeLength = in_index-minIndex;								//节点有右子树
+			}
+		}
+		
+		
+		if(leftTreeLength>0){
+			int max = 0;
+			int min = 0;
+			if(parent_in_index>in_index||parent_in_index==-1){
+				max = in_index-1;			//可以取到
+			}else{
+				max = in_index-1;
+				min = parent_in_index+1;
+			}
+			if(pre_index+1>in.length-1){
+				root.left = null;
+			}else{
+				int value = pre[pre_index+1];
+				System.out.println(value);
+				root.left = rebuild(new TreeNode(value),pre,in,in_index,max,min);
+			}
 		}else{
 			root.left = null;
 		}
-		
-		if(total>0&&total>rightTreeCount&&rightTreeCount>0){
-			root.right = rebuild(new TreeNode(pre[pre.length-rightTreeCount]),pre,in,rightTreeCount);
+		if(rightTreeLength>0){
+			int max = 0;
+			int min = 0;
+			if(parent_in_index>in_index){
+				min = in_index+1;
+				max = parent_in_index-1;
+			}else{
+				min = in_index+1;
+				max = in.length-1;
+			}
+			
+			if(pre_index+leftTreeLength+1>in.length-1){
+				root.right = null;
+			}else{
+				int value = pre[pre_index+leftTreeLength+1];
+				System.out.println(value);
+				root.right = rebuild(new TreeNode(value),pre,in,in_index,max,min);
+			}
 		}else{
 			root.right = null;
 		}
