@@ -2,9 +2,9 @@ package com.fja.io.buffered;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 /**
@@ -18,24 +18,8 @@ public class _Reader {
 	
 	public static void main(String[] args) {
 		baseProcess();
-		//测试实现的readLine()方法
-		File _file = new File("src\\com\\fja\\io\\buffered\\_Writer.java");
-		FileReader fr = null;
-		try {
-			fr = new FileReader(_file);
-			String line = null;
-			while((line = _readLine(fr))!=null){
-				System.out.println(line);
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}finally{
-			try {
-				if(fr!=null)fr.close();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
+		readLineTest();
+		inputStreamRreader();
 	}
 	
 	public static void baseProcess(){
@@ -91,6 +75,38 @@ public class _Reader {
 			return null;
 		}else{
 			return sb.toString();
+		}
+	}
+	//测试实现的readLine()方法
+	public static void readLineTest(){
+		File _file = new File("src\\com\\fja\\io\\buffered\\_Writer.java");
+		FileReader fr = null;
+		try {
+			fr = new FileReader(_file);
+			String line = null;
+			while((line = _readLine(fr))!=null){
+				System.out.println(line);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}finally{
+			try {
+				if(fr!=null)fr.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+	
+	//转换流，它是字节流和字符流的桥梁
+	//System.in是字节流，转为字符流输出
+	public static void inputStreamRreader(){
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+		try {
+			System.out.println(br.readLine());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
