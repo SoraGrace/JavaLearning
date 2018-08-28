@@ -4,11 +4,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+
+import javax.management.RuntimeErrorException;
 
 /**
  * 为什么要使用字符流？
  * 因为输入字节流读取的是文件中的二进制数据，读到的数据并不会帮你转换成看得懂的字符 
+ * 
+ * --------|Reader
+ * ------------|FileReader 读取文件的输入字符流
  * 
  */
 public class _FileReader {
@@ -16,11 +22,47 @@ public class _FileReader {
 	public static void main(String[] args) {
 		outputStreamTest();
 		inputStreamTest();
+		baseProcess();
 	}
 	
+	//文件输入字符流的基本使用
+	static void baseProcess(){
+		System.out.print("\n");
+		//步骤一： 找到文件
+		File file = new File("E:\\WriteTest.txt");
+		//步骤二：建立数据通道
+		FileReader fileReader = null;
+		try{
+			fileReader = new FileReader(file);
+			//步骤三：读取数据，读取【单个字符】，注意是单个字符
+			int content = 0;
+			while((content = fileReader.read())!=-1){
+				System.out.print((char)content);
+			}
+		}catch(IOException e){
+			throw new RuntimeException(e);
+		}finally{
+			//步骤四：关闭流
+			try {
+				if(fileReader!=null)fileReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/**
+		 * 优势：
+		 * 当中文中有英文字母时，可以正常读取，不会再出现乱码了 
+		 */
+	}
+	
+	
+	
+	
+	/* 字节流的不足 */
 	//使用字节流读取文件中的中文
 	static void inputStreamTest(){
-		File file = new File("E:\\test.txt");
+		File file = new File("E:\\WriteTest.txt");
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(file);
@@ -54,7 +96,7 @@ public class _FileReader {
 	
 	//使用字节流输出中文到文件中
 	static void outputStreamTest(){
-		File file = new File("E:\\test.txt");
+		File file = new File("E:\\WriteTest.txt");
 		String str = "老当益壮宁移白首之心";
 		FileOutputStream fos = null;
 		try {
