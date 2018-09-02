@@ -31,10 +31,15 @@ class Software{
 				FileReader fr = new FileReader(file);
 				prop.load(fr);
 				//获取使用次数
-				count = Integer.parseInt((String)prop.get("count"));
+				count = Integer.parseInt(prop.getProperty("count"));
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+		}
+		//超出三次，提醒购买正版
+		if(count>=3){
+			System.out.println("请购买正版软件");
+			System.exit(0);
 		}
 		//修改使用次数
 		prop.setProperty("count", String.valueOf(++count));
@@ -44,10 +49,6 @@ class Software{
 			prop.store(fw,"记录使用次数");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
-		}
-		if(count>=3){
-			System.out.println("请购买正版软件");
-			System.exit(0);
 		}
 	}
 }

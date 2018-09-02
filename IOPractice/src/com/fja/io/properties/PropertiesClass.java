@@ -33,6 +33,12 @@ public class PropertiesClass {
 		prop.setProperty("狗娃", "1");
 		prop.setProperty("铁蛋", "2");
 		
+		
+		//获取元素,直接返回字符串
+		String value = prop.getProperty("铁蛋");
+		System.out.println(value);			//2
+		
+		
 		//遍历所有元素
 		Set<Map.Entry<Object, Object>> entrys = prop.entrySet();
 		for(Entry<Object,Object> entry:entrys){
