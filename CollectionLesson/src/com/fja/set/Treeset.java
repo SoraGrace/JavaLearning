@@ -120,12 +120,10 @@ class Company{
 /**
  * 自定义比较器的compare方法中写的就是比较规则 
  */
-class MyComparator implements Comparator{
+class MyComparator implements Comparator<Company>{
 
 	@Override
-	public int compare(Object arg0, Object arg1) {
-		Company c0 = (Company)arg0;
-		Company c1 = (Company)arg1;
+	public int compare(Company c0, Company c1) {
 		return c0.id-c1.id;
 	}
 }

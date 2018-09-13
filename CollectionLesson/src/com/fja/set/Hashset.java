@@ -38,7 +38,7 @@ public class Hashset {
 		String _str = new String("狗剩");
 		System.out.println(str==_str);						//false
 		System.out.println(str.hashCode()==_str.hashCode());//true
-		//上述情况，内存地址不同，hashCode相同，是因为String类重写了hasCode方法，只要两个字符串的内同一致，则hasCode方法返回值一致
+		//上述情况，内存地址不同，hashCode相同，是因为String类重写了hashCode方法，只要两个字符串的内同一致，则hashCode方法返回值一致
 	}
 
 }
