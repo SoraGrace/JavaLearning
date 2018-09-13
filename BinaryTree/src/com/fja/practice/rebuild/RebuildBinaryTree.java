@@ -1,88 +1,57 @@
 package com.fja.practice.rebuild;
 /**
  * 通过前序遍历和中序遍历重新构建二叉树 
- * 步骤：
- * 	通过pre[0]确定根节点
- *  通过在in[]中确定根节点划分出左右子树的元素
  */
 public class RebuildBinaryTree {
+	
 	public TreeNode Solution(int[] pre,int[] in){
-		if(pre.length!=in.length)return null;
-		//根节点：
+		TreeNode binaryTree = rebuild(pre,in);
+		return binaryTree;
+	}
+	
+	public TreeNode rebuild(int[] pre,int[] in){
+		
+		//找到根节点在中序遍历中的索引
+		int rootIndex = 0;
+		for(int i = 0; i<in.length;i++){
+			if(pre[0] == in[i]){
+				rootIndex = i;
+				break;
+			}
+		}
+		
+		//生成根节点
 		TreeNode root = new TreeNode(pre[0]);
 		
-		root = rebuild(root,pre,in,-1,-1,-1);
-		return root;
-	}
-	//右子树设最大值，左子树设最小值
-	private TreeNode rebuild(TreeNode root,int[] pre,int[] in,int parent_in_index,int maxIndex,int minIndex){
-		System.out.println("----"+root.val);
-		int pre_index = 0;
-		int in_index = 0;
-		for(int i = 0;i<pre.length;i++){
-			if(pre[i]==root.val){
-				pre_index = i;
+		//中序遍历中根节点大于零说明左边的子树有节点，开始递归
+		if(rootIndex>0){
+			//生成左子树的前序数组
+			int[] leftPre = new int[rootIndex];	
+			//生成左子树的中序数组
+			int[] leftIn = new int[rootIndex];
+			for(int i = 0; i < rootIndex; i++){
+				//左子树一共是有rootIndex个元素，前序数组中索引是1到rootIndex，中序数组中是0到rootIndex-1
+				leftPre[i] = pre[i+1];
+				leftIn[i] = in[i];
 			}
-			if(in[i]==root.val){
-				in_index = i;
-			}
-		}
-		int leftTreeLength = 0;
-		int rightTreeLength = 0;
-		//根节点
-		if(parent_in_index==-1){
-			leftTreeLength = in_index;
-			rightTreeLength = in.length-1-in_index;
-		}else{
-			if(parent_in_index>in_index&&in_index>=0){					//左子树
-				leftTreeLength = in_index-minIndex;							//节点有左子树
-				rightTreeLength = maxIndex-in_index;
-			}else if(in_index>0){									//右子树
-				rightTreeLength = maxIndex-in_index;
-				leftTreeLength = in_index-minIndex;								//节点有右子树
-			}
+			root.left = rebuild(leftPre,leftIn);
 		}
 		
-		
-		if(leftTreeLength>0){
-			int max = 0;
-			int min = 0;
-			if(parent_in_index>in_index||parent_in_index==-1){
-				max = in_index-1;			//可以取到
-			}else{
-				max = in_index-1;
-				min = parent_in_index+1;
+		//中序数组长度减去根节点中序索引大于一，说明有右子树，开始递归
+		if(in.length - rootIndex > 1){
+			//右子树的长度
+			int len = in.length - rootIndex - 1;
+			//生成右子树的前序数组
+			int[] rightPre = new int[len];
+			//生成右子树的中序数组
+			int[] rightIn = new int[len];
+			//左子树一共是有in.length - rootIndex - 1个元素
+			for(int i = rootIndex+1; i < in.length; i++){
+				//元素在前序数组和中序数组中索引是rootIndex+1到in.length-1
+				rightPre[i-rootIndex-1] = pre[i];
+				rightIn[i-rootIndex-1] = in[i];
 			}
-			if(pre_index+1>in.length-1){
-				root.left = null;
-			}else{
-				int value = pre[pre_index+1];
-				System.out.println(value);
-				root.left = rebuild(new TreeNode(value),pre,in,in_index,max,min);
-			}
-		}else{
-			root.left = null;
-		}
-		if(rightTreeLength>0){
-			int max = 0;
-			int min = 0;
-			if(parent_in_index>in_index){
-				min = in_index+1;
-				max = parent_in_index-1;
-			}else{
-				min = in_index+1;
-				max = in.length-1;
-			}
-			
-			if(pre_index+leftTreeLength+1>in.length-1){
-				root.right = null;
-			}else{
-				int value = pre[pre_index+leftTreeLength+1];
-				System.out.println(value);
-				root.right = rebuild(new TreeNode(value),pre,in,in_index,max,min);
-			}
-		}else{
-			root.right = null;
+			root.right = rebuild(rightPre, rightIn);
 		}
 		return root;
 	}
