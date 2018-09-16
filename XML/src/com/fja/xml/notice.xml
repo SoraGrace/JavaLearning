@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  xml的作用：
+  	描述带关系的数据，作为程序的配置文件。
+  	此外，可以作为数据的载体，存储数据，可以当作小型的数据库。 
+  	
+  xml注意事项：
+	1.标签名区分大小写
+	2.标签不能包含空格
+	3.标签不能以数字开头
+	4.只能有一个根标签
+	
+	关于解码：
+	在文档声明中，写的encoding，就是告诉xml解析器(浏览器..)要用什么码表进行解码。
+	【注意】在IDE中会根据你写的encoding保存(编码)所写的xml文件。
+	如果xml编码时的码表和解码时的码表不统一，会导致无法解析xml的内容。
+	
+	cdata块：
+	对于cdata块中的内容，xml解析器不会进行解析，而是原样输出。
+	
+	处理指令：
+	告诉xml解析器如何去解析这份xml文档。
+	比如用什么css文件来显示文档，xml-stylesheet指令
+ -->
+ 
+ 
+<!-- 引入css文件 -->
+<?xml-stylesheet type="text/css" href="base.css"?>
+
+<students>
+	<student>
+		<name>铁蛋</name>
+		<age>20</age>
+	</student>
+	<student>
+		<name>狗剩</name>
+		<age>19</age>
+	</student>
+	
+	<!-- cdata块 -->
+	<![CDATA[
+		<student>
+			<name>喜羊羊</name>
+			<age>5</age>
+		</student>
+	]]>
+</students>
