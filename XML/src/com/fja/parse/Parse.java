@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -126,6 +127,98 @@ public class Parse {
 			for(Element e : list){
 				System.out.println(e.getName());
 			}
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * 获取属性节点 
+	 */
+	@Test
+	public void getAttribute(){
+		SAXReader reader = new SAXReader();
+		
+		try {
+			Document doc = reader.read(new File("./src/com/fja/parse/xml/students.xml"));
+			
+			Element rootElement = doc.getRootElement();
+			
+			//想要拿到属性节点，需要先获取属性所在的标签节点
+			Element stu = rootElement.element("student");
+			
+			//拿到指定名称的属性节点对象
+			Attribute attribute = stu.attribute("id");
+			
+			System.out.println(attribute);//org.dom4j.tree.DefaultAttribute@58d25a40 [Attribute: name id value "001"]
+			//属性值
+			String value = attribute.getValue();
+			//属性名
+			String name = attribute.getName();
+			
+			System.out.println(name+" = "+value);//001
+			
+			//直接拿到指定名称的属性节点的值
+			String attributeValue = stu.attributeValue("id");
+			
+			System.out.println(attributeValue);//001
+			
+			
+			//获得标签下所有的属性，两种方法:
+			//方法一：
+			List<Attribute> list = stu.attributes();
+			
+			for(Attribute attr : list){
+				
+				System.out.println(attr.getName()+" = "+attr.getValue());
+			}
+			
+			//方法二：
+			Iterator<Attribute> attributeIterator = stu.attributeIterator();
+			
+			while(attributeIterator.hasNext()){
+				
+				Attribute attr = attributeIterator.next();
+				
+				System.out.println(attr.getName()+" = "+attr.getValue());
+			}
+			
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * 获取文本节点
+	 */
+	@Test
+	public void getText(){
+		SAXReader reader = new SAXReader();
+		
+		try {
+			Document doc = reader.read(new File("./src/com/fja/parse/xml/students.xml"));
+			
+			//获取根节点
+			Element rootElement = doc.getRootElement();
+			
+			//和属性节点一样，要拿到文本节点首先要拿到标签节点
+			Element stu = rootElement.element("student");
+			//方法一：
+			Element nameElement = stu.element("name");
+			
+			//获得当前标签节点的文本内容
+			String text = nameElement.getText();
+			
+			System.out.println("方法一： "+text);
+			
+			//方法二：得到指定子标签名的文本内容
+			String elementText = stu.elementText("name");
+			
+			System.out.println("方法二： "+elementText);
+			
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
