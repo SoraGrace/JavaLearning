@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<students>
+	<student>
+		<name>铁蛋</name>
+		<age>20</age>
+		<gender>男</gender>
+	</student>
+	<student>
+		<name>狗剩</name>
+		<age>19</age>
+		<gender>男</gender>
+	</student>
+	<student>
+		<name>美美</name>
+		<age>15</age>
+		<gender>女</gender>
+	</student>
+</students>
