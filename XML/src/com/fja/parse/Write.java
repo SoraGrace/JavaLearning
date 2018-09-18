@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -106,11 +107,23 @@ public class Write {
 			//1.创建一个document对象
 			Document document = DocumentHelper.createDocument();
 			
+			//2.增加一个根标签节点,没有内容的时候是一个空标签
+			Element rootElement = document.addElement("contactList");
+			//3.添加子标签节点
+			Element contactElement = rootElement.addElement("contact");
+			Element nameElement = contactElement.addElement("name");
+			
+			//4.添加属性节点,一个参数是属性名，一个是属性值
+			contactElement.addAttribute("id", "001");
+			
+			//5.添加文本节点
+			nameElement.addText("铁蛋");
+			
 			OutputFormat pretty = OutputFormat.createPrettyPrint();			//漂亮格式,有空格换行,便于阅读
 			
 			pretty.setEncoding("utf-8");
 			
-			xmlWriter = new XMLWriter(new FileOutputStream("E:/XMLWrite.xml"),pretty);
+			xmlWriter = new XMLWriter(new FileOutputStream("E:/contact.xml"),pretty);
 			
 			xmlWriter.write(document);
 			
