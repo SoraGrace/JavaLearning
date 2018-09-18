@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -88,6 +89,39 @@ public class Write {
 		}finally{
 			try {
 				//4.关闭输出流
+				if(xmlWriter!=null)xmlWriter.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+	
+	/**
+	 * 创建新的xml文档 
+	 */
+	@Test
+	public void create(){
+		XMLWriter xmlWriter = null;
+		try {
+			//1.创建一个document对象
+			Document document = DocumentHelper.createDocument();
+			
+			OutputFormat pretty = OutputFormat.createPrettyPrint();			//漂亮格式,有空格换行,便于阅读
+			
+			pretty.setEncoding("utf-8");
+			
+			xmlWriter = new XMLWriter(new FileOutputStream("E:/XMLWrite.xml"),pretty);
+			
+			xmlWriter.write(document);
+			
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}finally{
+			try {
 				if(xmlWriter!=null)xmlWriter.close();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
