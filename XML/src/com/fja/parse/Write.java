@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -136,6 +137,148 @@ public class Write {
 		}finally{
 			try {
 				if(xmlWriter!=null)xmlWriter.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+	
+	
+	/**
+	 * 修改xml属性值和文本 
+	 */
+	@Test
+	public void _modify(){
+		XMLWriter xmlWriter = null;
+		
+		try {
+			Document document = new SAXReader().read(new File("E:/contact.xml"));
+			
+			/**
+			 * 修改属性节点
+			 * 方法一：setValue()
+			 */
+			//1.1找到ID的属性节点
+			Element root = document.getRootElement();
+			Attribute id = root.element("contact").attribute("id");
+			
+			//1.2修改
+			id.setValue("003");
+			
+			/**
+			 * 修改属性节点
+			 * 方法二：setValue()
+			 */
+			//2.1找到属性节点的父节点
+			Element parent = root.element("contact");
+			//2.2添加同名的属性，因为相同的属性只能有一个，因此会将原有的属性值覆盖
+			parent.addAttribute("id", "005");
+			
+			/**
+			 * 修改文本节点： 
+			 */
+			//1.得到标签对象
+			Element elem = root.element("contact").element("name");
+			//2.修改文本
+			elem.setText("李四");
+			
+			OutputFormat pretty = OutputFormat.createPrettyPrint();			//漂亮格式,有空格换行,便于阅读
+			
+			pretty.setEncoding("utf-8");
+			
+			xmlWriter = new XMLWriter(new FileOutputStream("E:/contact.xml"),pretty);
+			
+			xmlWriter.write(document);
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * 删除标签和属性节点 
+	 */
+	@Test
+	public void delete() {
+		SAXReader reader = new SAXReader();
+		XMLWriter writer = null;
+		try {
+			File file = new File("E:/contact.xml"); 
+			
+			Document doc = reader.read(file);
+			
+			Element rootElement = doc.getRootElement();
+			
+			Element contactElem = rootElement.addElement("contact");
+			
+			contactElem.addAttribute("id", "002");
+			
+			Element nameElem = contactElem.addElement("name");
+			
+			nameElem.addText("狗剩");
+			
+			writer = new XMLWriter(new FileOutputStream(file));
+			
+			writer.write(doc);
+			
+			//删除上面新增的name标签
+			/**
+			 * 方法一：detach()
+			 * 1.1 获取标签对象 
+			 */
+			doc = reader.read(file);
+			
+			rootElement = doc.getRootElement();
+			
+			Element second = rootElement.elements("contact").get(1);
+			
+			Element name = second.element("name");
+			
+			//1.2删除标签对象
+			name.detach();
+			
+			/**
+			 * 方法二：remove() 
+			 */
+			//2.1获得标签对象
+			Element first = rootElement.elements("contact").get(0);
+			Element _name = first.element("name");
+			
+			//2.2获得想要删除的标签的父节点
+			Element parent = _name.getParent();
+			
+			//通过父标签删除目标(可以是Node、Element、Attribute、Text等等)
+			parent.remove(_name);
+			
+			/**
+			 * 删除属性节点和删除标签节点的步骤是一样的 
+			 * 3.1获得属性节点的对象
+			 */
+			Attribute idAttr = second.attribute("id");
+			idAttr.detach();
+			
+			writer = new XMLWriter(new FileOutputStream(file));
+			
+			writer.write(doc);
+			
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				if(writer!=null)writer.close();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
