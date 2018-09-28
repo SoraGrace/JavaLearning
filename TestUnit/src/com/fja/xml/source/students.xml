@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+	<student id="001" class="first">
+		<name>铁蛋</name>
+		<age>20</age>
+	</student>
+	<student id="002">
+		<name>狗剩</name>
+		<age>19</age>
+	</student>
+	<student id="003">
+		<name>美美</name>
+		<age>15</age>
+	</student>
+</students>
