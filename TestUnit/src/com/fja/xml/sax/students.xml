@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+	<student id="001">
+		<name>铁蛋</name>
+		<age>8</age>
+		<hobby>学习</hobby>
+	</student>
+	
+	<student id="002">
+		<name>狗剩</name>
+		<age>15</age>
+		<hobby>打游戏</hobby>
+	</student>
+	
+	<student id="003">
+		<name>美美</name>
+		<age>10</age>
+		<hobby>下棋</hobby>
+	</student>
+	
+	<student id="004">
+		<name>凤霞</name>
+		<age>6</age>
+		<hobby>游泳</hobby>
+	</student>
+</students>
