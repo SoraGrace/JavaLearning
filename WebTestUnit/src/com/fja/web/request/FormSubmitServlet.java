@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
-import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +20,26 @@ public class FormSubmitServlet extends HttpServlet{
 		//获取所有提交参数的方法     getQueryString()
 		String paramStr = req.getQueryString();
 		System.out.println(paramStr);
+		
+		/**
+		 * 与doPost方法一样可以通过getParameter()方法快速获取指定的提交数据
+		 * 但是doGet方法不能用setCharacterEncoding()方法解决中文乱码问题，因为，get提交方式的数据不是在实体内容中的。
+		 * 因此只能通过手动编码再解码的过程解决乱码问题。
+		 * 造成乱码的过程：
+		 * utf-8编码的数据-->request使用iso-8859-1进行解码-->中文乱码
+		 * 解决方法：
+		 * 中文乱码-->手动用iso-8859-1进行编码-->utf-8编码的数据-->手动使用utf-8进行解码-->正常数据
+		 */
+		//乱码
+		String username = req.getParameter("username");		
+		
+		//手动用iso-8859-1进行编码
+		byte[] arr = username.getBytes("iso-8859-1");
+		
+		//手动使用utf-8进行解码
+		username = new String(arr,"utf-8");
+		
+		System.out.println("username: "+username);
 	}
 	
 	

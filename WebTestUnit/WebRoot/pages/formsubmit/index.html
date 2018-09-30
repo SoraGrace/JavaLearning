@@ -11,7 +11,7 @@
   </head>
   
   <body>
-  	
+  	<h4>POST提交</h4>
     <form action="/WebTestUnit/info" method="post">
     	用户名： <input type="text" name="username" /><br />
     	性别： <input type="radio" name="gender" value="0" />女
@@ -35,5 +35,30 @@
         <input type="submit" value="提交" />
     </form>
     
+    <hr />
+    <hr />
+    <h4>GET提交</h4>
+    <form action="/WebTestUnit/info" method="get">
+    	用户名： <input type="text" name="username" /><br />
+    	性别： <input type="radio" name="gender" value="0" />女
+    		  <input type="radio" name="gender" value="1" />男<br />
+    	籍贯： <select name="origin">
+    		  	<option>杭州</option>
+    		  	<option>宁波</option>
+    		  	<option>嘉兴</option>
+    		  	<option>温州</option>
+    		  	<option>台州</option>
+    		  	<option>丽水</option>
+    		  </select>
+    		  <br />
+    	爱好： <input type="checkbox" name="hobby" value="learning" />学习
+    		  <input type="checkbox" name="hobby" value="codeing" />编程
+    		  <input type="checkbox" name="hobby" value="sleeping" />睡觉
+    		  <br />  
+                简介： <textarea rows="5" name="brief"></textarea>
+        <br />
+        
+        <input type="submit" value="提交" />
+    </form>
   </body>
 </html>
