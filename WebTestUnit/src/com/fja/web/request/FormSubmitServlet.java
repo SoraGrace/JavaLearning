@@ -26,9 +26,14 @@ public class FormSubmitServlet extends HttpServlet{
 		 * 但是doGet方法不能用setCharacterEncoding()方法解决中文乱码问题，因为，get提交方式的数据不是在实体内容中的。
 		 * 因此只能通过手动编码再解码的过程解决乱码问题。
 		 * 造成乱码的过程：
-		 * utf-8编码的数据-->request使用iso-8859-1进行解码-->中文乱码
+		 * utf-8编码的数据-->tomcat使用iso-8859-1进行解码-->中文乱码
 		 * 解决方法：
 		 * 中文乱码-->手动用iso-8859-1进行编码-->utf-8编码的数据-->手动使用utf-8进行解码-->正常数据
+		 * 
+		 * ps.
+		 * 	iso-8859-1是唯一的，解码中出现乱码不会丢失数据的码表。也就是说出现解码乱码，再用iso-8859-1编码后，还能还原到原有的数据。
+		 * 	原因是iso-8859-1编码范围使用了单字节内的所有空间，也就是不存在一个字符对应多个字节的情况，比如在其他码表中会出现多个字节没有使用，
+		 * 	则这些字节就对应了一个无效的字符，这就造成了一个字符对应多个字节。
 		 */
 		//乱码
 		String username = req.getParameter("username");		
@@ -77,7 +82,7 @@ public class FormSubmitServlet extends HttpServlet{
 		 * getParameter()			        根据参数的key获得对应的value
 		 * req.getParameterNames()		获得所有参数的key
 		 * 
-		 * 还需要注意的是中文解码的问题，上述的方法用的是iso-8859-1,而页面编码用的是utf-8。
+		 * 还需要注意的是中文解码的问题，上述的方法(tomcat)用的是iso-8859-1,而页面编码用的是utf-8。
 		 * setCharactorEncoding()可以设置实体内容的解码方式，从而解决getParameter()方法的中文乱码问题。
 		 * 【注意】这个方法只能设置实体内容的解码方式，因此只能解决post方法提交的数据中文乱码问题，get方式并不适用
 		 */

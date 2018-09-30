@@ -12,7 +12,10 @@
   
   <body>
   	<h4>POST提交</h4>
+  	
+  	<!-- action = 项目名称+url-pattern中的uri -->
     <form action="/WebTestUnit/info" method="post">
+    
     	用户名： <input type="text" name="username" /><br />
     	性别： <input type="radio" name="gender" value="0" />女
     		  <input type="radio" name="gender" value="1" />男<br />
@@ -38,7 +41,10 @@
     <hr />
     <hr />
     <h4>GET提交</h4>
+    
+    <!-- action = 项目名称+url-pattern中的uri -->
     <form action="/WebTestUnit/info" method="get">
+    
     	用户名： <input type="text" name="username" /><br />
     	性别： <input type="radio" name="gender" value="0" />女
     		  <input type="radio" name="gender" value="1" />男<br />
