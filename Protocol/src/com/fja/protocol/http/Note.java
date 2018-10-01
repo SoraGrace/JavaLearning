@@ -77,7 +77,29 @@ package com.fja.protocol.http;
  *  	
  *  	实体内容：
  *  	request.getInputStream()    获取输入字节流，循环read()可获得实体内容
- *  	
+ *  
+ *  
+ *  
+ *  响应行的格式：
+ *  	协议版本+状态码+状态描述
+ *  
+ *  常见状态码:
+ *  	200       请求处理完成并完美返回
+ *  	302       请求需要进一步细化
+ *  	404       客户端错误，访问的资源找不到(用户输入错误uri)
+ *      500   服务器内部发生错误
+ *  
+ *  状态描述：
+ *  	对状态码的补充说明
+ *  	Ok
+ *  	Not Found
+ *  
+ *  常见的响应头：
+ *  	Location：www.xxxx.com             				--->表示重定向的地址，该头和302的状态码一起使用
+ *  	Server：appache tomcat			  				--->表示服务器的类型
+ *  	Content-Type：text/html;charset=utf-8			--->表示服务器发送给浏览器的数据类型和内容编码【重要】
+ *  	Content-Dispositon：attachment;filename=xxx.zip 	--->告诉浏览器以下载的方式打开资源
+ *  	Set-Cookie：SS=Q0=5LB;path=/search				--->发送给浏览器的cookie信息
  */
 public class Note {
 
