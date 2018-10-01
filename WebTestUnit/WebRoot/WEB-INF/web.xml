@@ -5,14 +5,87 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   
+  <!-- servlet 获取提交参数信息 -->
   <servlet>
   	<servlet-name>personInfo</servlet-name>
   	<servlet-class>com.fja.web.request.FormSubmitServlet</servlet-class>
   </servlet>
   
+  <!-- servlet 获取请求行和请求头信息 -->
+  <servlet>
+  	<servlet-name>requestHeader</servlet-name>
+  	<servlet-class>com.fja.web.request.RequestHeaderServlet</servlet-class>
+  </servlet>
+  
+  <!-- servlet 设置响应行、响应头、实体内容 -->
+  <servlet>
+  	<servlet-name>servletResponse</servlet-name>
+  	<servlet-class>com.fja.web.response.ServletResponse</servlet-class>
+  </servlet>
+  
+  <!-- servlet 响应重定向 -->
+  <servlet>
+  	<servlet-name>responseRedirect</servlet-name>
+  	<servlet-class>com.fja.web.response.ResponseRedirect</servlet-class>
+  </servlet>
+  
+  <!-- servlet 定时刷新某个页面，隔x秒跳转指定页面 -->
+  <servlet>
+  	<servlet-name>responseRefresh</servlet-name>
+  	<servlet-class>com.fja.web.response.ResponseRefresh</servlet-class>
+  </servlet>
+  
+  
+  <!-- servlet 设置响应返回的数据类型 -->
+  <servlet>
+  	<servlet-name>responseContentType</servlet-name>
+  	<servlet-class>com.fja.web.response.ResponseContentType</servlet-class>
+  </servlet>
+  
+  
+  <!-- servlet 解决响应中文乱码问题 -->
+  <servlet>
+  	<servlet-name>responseMessyCode</servlet-name>
+  	<servlet-class>com.fja.web.response.ResponseMessyCode</servlet-class>
+  </servlet>
+  
+  
+  <!-- 路由 -->
   <servlet-mapping>
   	<servlet-name>personInfo</servlet-name>
   	<url-pattern>/info</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>requestHeader</servlet-name>
+  	<url-pattern>/request/getHeader</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>servletResponse</servlet-name>
+  	<url-pattern>/servlet/response</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>responseRedirect</servlet-name>
+  	<url-pattern>/response/redirect</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>responseRefresh</servlet-name>
+  	<url-pattern>/response/refresh</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>responseContentType</servlet-name>
+  	<url-pattern>/response/contentType</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>responseMessyCode</servlet-name>
+  	<url-pattern>/response/messy</url-pattern>
   </servlet-mapping>
   
 </web-app>

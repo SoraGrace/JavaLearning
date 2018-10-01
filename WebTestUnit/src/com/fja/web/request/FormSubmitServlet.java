@@ -30,6 +30,14 @@ public class FormSubmitServlet extends HttpServlet{
 		 * 解决方法：
 		 * 中文乱码-->手动用iso-8859-1进行编码-->utf-8编码的数据-->手动使用utf-8进行解码-->正常数据
 		 * 
+		 * 
+		 * 【不推荐】
+		 * 另一个解决get方法提交参数乱码的方法，就是直接修改服务器的配置文件。以tomcat为例，
+		 * 	步骤一：找到%tomcat%/conf/server.xml
+		 * 	步骤二：在标签后面添加      URIEncoding="utf-8"
+		 * 	<Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" URIEncoding="utf-8" />
+		 * 
+		 * 
 		 * ps.
 		 * 	iso-8859-1是唯一的，解码中出现乱码不会丢失数据的码表。也就是说出现解码乱码，再用iso-8859-1编码后，还能还原到原有的数据。
 		 * 	原因是iso-8859-1编码范围使用了单字节内的所有空间，也就是不存在一个字符对应多个字节的情况，比如在其他码表中会出现多个字节没有使用，

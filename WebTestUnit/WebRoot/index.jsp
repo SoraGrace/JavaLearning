@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,9 +18,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	<style>
+		button{
+			margin-top:10px;
+		}
+	</style>
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <button id="responseRedirect">重定向</button><br />
+    
+    <button id="responseRefresh">三秒后跳转</button>
   </body>
+  
+  <script type="text/javascript">
+  	var button_redirect = document.getElementById("responseRedirect");
+  	var button_refresh = document.getElementById("responseRefresh");
+  	
+  	
+  	
+  	button_redirect.onclick = function(){
+  		//location.href 可以是uri
+  		window.location.href = "/WebTestUnit/response/redirect";	
+  	}
+  	
+  	
+  	button_refresh.onclick = function(){
+  		window.location.href = "/WebTestUnit/response/refresh";	
+  	}
+  </script>
 </html>
