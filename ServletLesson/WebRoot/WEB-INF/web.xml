@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>ServletLesson</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+   <servlet>
+  	<servlet-name>base</servlet-name>
+  	<servlet-class>com.fja.base.ServletBaseApply</servlet-class>
+  </servlet>
+  
+  <!-- 精确匹配 -->
+  <servlet-mapping>
+  	<servlet-name>base</servlet-name>
+  	<url-pattern>/base</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 模糊匹配 -->
+    <servlet-mapping>
+  	<servlet-name>base</servlet-name>
+  	<url-pattern>/servlet/apply/*</url-pattern>
+  </servlet-mapping>
+</web-app>
