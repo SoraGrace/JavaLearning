@@ -37,6 +37,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * 	3. 扩展匹配，如果url最后一段包含扩展，容器将会根据扩展选择合适的servlet。例子：servletA的url-pattern：*.action
  * 
+ * 
+ * ps.tomcat的缺省路径
+ * 问：为什么在不推荐将自定义的servlet的url-pattern设置为/或者/*？
+ * 答：因为/是tomcat的缺省路径，这个路径对应的是一个名字叫default的默认的servlet。(具体的配置可以在%tomcat%/conf/web.xml中找到)
+ * 	     这个default的servlet主要是tomcat用来解析静态资源文件的。
+ * 	  
+ * 问：假设当前的请求是http://localhost:8080/xxxx/index.html,而webroot下面有一个index.html,web.xml中有一个servlet的url-pattern
+ * 	     也是/index.html。那么index.html匹配到的是静态页面还是servlet。
+ * 答：匹配到的是servlet，因为在tomcat匹配资源名称的时候，先是去web.xml中尝试匹配url-pattern，如果没有匹配到对应的url-pattern，这时候就会找到
+ * 	  default servlet(缺省servlet)去处理。而default servlet就会去项目的根目录下查找是否存在对应名称的静态资源(也就是index.html页面)。如果有则
+ *	     读取静态文件的信息通过response返回给用户，找不到则返回404错误页面。
+ * 
+ * 结论：若果自定义了一个url-pattern是缺省路径的servlet会导致服务器无法正确的找到静态资源，因为匹配的顺序是先动态(servelt)后静态(html、js、xml .etc)
  */
 public class ServletBaseApply extends HttpServlet{
 	@Override
