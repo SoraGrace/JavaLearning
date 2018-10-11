@@ -9,7 +9,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 
 /**
- * Servlet 接口
+ * Servlet 接口   实现一个Serlvet接口就是一个Servlet类了，注意区分Serlvet和HttpServlet（平时我们指的是HttpServlet）
  * -----|GenericServlet 抽象类
  * -------------|HttpServlet 基于Http协议的servlet 有doGet doPost方法
  * 
@@ -19,12 +19,13 @@ import javax.servlet.http.HttpServlet;
  */
 public class ServletLifecycle extends HttpServlet{
 	
-	//构造方法，创建servlet对象的时候调用，第一次访问一个servlet的时候就是创建servlet的时候。
+	//构造方法，创建servlet对象的时候调用。默认情况下，第一次访问一个servlet的时候创建servlet。
+	//默认情况下一个servlet的构造函数只会调用一次，默认情况下servlet是单例的
 	public ServletLifecycle(){
 		System.out.println("servlet对象被创建");
 	}
 	
-	//init方法，创建完servlet对象的时候调用（注意是创建完）
+	//init方法，创建完servlet对象的时候调用（注意是创建完），默认情况下一个servlet也只会调用一次
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
