@@ -17,11 +17,19 @@ import javax.servlet.http.HttpServlet;
  *    1. Servlet程序的生命周期是由服务器(tomcat)控制的
  *    2. 构造方法、init()、service()、destroy()构成了servlet的生命周期
  *   
- *    
- * 默认的情况下，第一次访问servlet的时候创建servlet对象。如果某个Servlet的构造方法或者是init()方法中执行了较多的逻辑代码，
+ *【Servlet自动加载】  
+ * 		默认的情况下，第一次访问servlet的时候创建servlet对象。如果某个Servlet的构造方法或者是init()方法中执行了较多的逻辑代码，
  * 那么会导致用户第一次访问这个servlet的时候花费较多的时间。因此我们可以改变Servlet创建对象的时机，在tomcat启动的时候就创建这个Servlet的对象
  * 只需要在web.xml中添加<load-on-startup>1</load-on-startup>即可。标签中间的数字表示优先级，数字越大优先级越低
  * 
+ * 
+ * init方法
+ * init()方法有两个，一个是无参数的init(),一个是有参数的init(ServletConfig)
+ * init(ServletConfig)是生命周期的方法，必定会被调用
+ * init()是Servlet的编写初始化代码的方法，是sun公司给开发者编写Servlet的初始化逻辑代码的方法。
+ * 
+ * 区别：
+ * init()是专门给开发者覆盖，来自定义Servlet初始化的时候有哪些代码需要执行，init()方法会在init(ServletConfig)中被调用。
  */
 public class ServletLifecycle extends HttpServlet{
 	
@@ -50,5 +58,13 @@ public class ServletLifecycle extends HttpServlet{
 	public void destroy() {
 		super.destroy();
 		System.out.println("servlet对象销毁了");
+	}
+	
+	
+	//会在init(ServletConfig)中被调用。【注意】init()被init(ServletConfig)调用的前提是开发者没有重写init(ServletConfig)方法，或者重写后手动调用init()
+	//在开发中，如果需要编写Servlet初始化的代码，则覆盖init()无参数的方法即可。
+	@Override
+	public void init() throws ServletException {
+		//写我们希望Servlet初始化时执行的代码
 	}
 }
