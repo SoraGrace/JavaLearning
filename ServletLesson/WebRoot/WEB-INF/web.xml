@@ -8,12 +8,25 @@
    <servlet>
   	<servlet-name>base</servlet-name>
   	<servlet-class>com.fja.base.ServletBaseApply</servlet-class>
+  	<!-- 设置servlet在服务器启动时就创建实例，数字越大，创建的优先级越低 -->
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  
+  <servlet>
+  	<servlet-name>life</servlet-name>
+  	<servlet-class>com.fja.base.ServletLifecycle</servlet-class>
   </servlet>
   
   <!-- 精确匹配 -->
   <servlet-mapping>
   	<servlet-name>base</servlet-name>
   	<url-pattern>/base</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>life</servlet-name>
+  	<url-pattern>/lifecycle</url-pattern>
   </servlet-mapping>
   
   <!-- 模糊匹配 -->

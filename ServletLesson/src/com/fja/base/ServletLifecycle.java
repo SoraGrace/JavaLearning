@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServlet;
  * Servlet的生命周期：
  *    1. Servlet程序的生命周期是由服务器(tomcat)控制的
  *    2. 构造方法、init()、service()、destroy()构成了servlet的生命周期
+ *   
+ *    
+ * 默认的情况下，第一次访问servlet的时候创建servlet对象。如果某个Servlet的构造方法或者是init()方法中执行了较多的逻辑代码，
+ * 那么会导致用户第一次访问这个servlet的时候花费较多的时间。因此我们可以改变Servlet创建对象的时机，在tomcat启动的时候就创建这个Servlet的对象
+ * 只需要在web.xml中添加<load-on-startup>1</load-on-startup>即可。标签中间的数字表示优先级，数字越大优先级越低
+ * 
  */
 public class ServletLifecycle extends HttpServlet{
 	

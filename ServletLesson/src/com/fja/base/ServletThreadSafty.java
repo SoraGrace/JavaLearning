@@ -1,5 +1,10 @@
 package com.fja.base;
 
-public class ServletThreadSafty {
+import javax.servlet.http.HttpServlet;
+
+/**
+ *  
+ */
+public class ServletThreadSafty extends HttpServlet{
 
 }
