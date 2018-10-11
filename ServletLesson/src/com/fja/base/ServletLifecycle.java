@@ -32,7 +32,7 @@ public class ServletLifecycle extends HttpServlet{
 		System.out.println("调用init初始化");
 	}
 	
-	//service方法，每次访问servlet时都会调用
+	//service方法，每次访问servlet时都会调用，根据请求的方式决定调用doGet()还是doPost()
 	@Override
 	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
 		super.service(req, res);
