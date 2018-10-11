@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletResponse;
  * ps.
  * 问：count++是线程安全的么？
  * 答：不是，因为count++不是原子性操作
+ * 
+ * 解决方案：
+ * 	1. 使用同步代码块。因为会产生效率问题，所以在使用同步代码块的时候，要尽量缩小同步代码块的范围。
+ * 	2. 使用原子性操作，且不能是多句语句。
+ * 	3. Servlet中不使用共享资源，比如不设置成员变量，若果必须使用的话，参考上述1,2
  */
 public class ServletThreadSafty extends HttpServlet{
 	
