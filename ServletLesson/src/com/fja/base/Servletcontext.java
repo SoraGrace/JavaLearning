@@ -3,6 +3,7 @@ package com.fja.base;
 import java.io.IOException;
 import java.util.Enumeration;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * 		getInitParameter()						获取web应用的初始化参数
  * 		getInitParameterNames()					
  * 
- * 		getAttribute()							域对象相关方法
+ * 		getAttribute()							ServletContext域对象相关方法
  * 		setAttribute(String,Object)
  * 		removeAttribute(String)
  * 
@@ -76,15 +77,33 @@ public class Servletcontext extends HttpServlet{
 		
 		
 		
-		//域对象：主要是用于数据的保存，可以在不同的动态资源之间共享数据
-		//ps.在servlet中共享数据还可以通过sendRedirect()，把数据通过url进行传递(get方式)
+		/**
+		 * ServletContext域对象：主要是用于数据的保存，可以在不同的动态资源之间共享数据
+		 * ps.在servlet中共享数据还可以通过sendRedirect()，把数据通过url进行传递(get方式)
+		 */
 		
 		//保存数据:
-		servletContext.setAttribute("student", "铁蛋");
+		servletContext.setAttribute("name", "铁蛋");
 		//获取数据：
-		Object attribute = servletContext.getAttribute("student");
+		Object attribute = servletContext.getAttribute("name");
 		System.out.println((String)attribute);
 		//删除数据：
-		servletContext.removeAttribute("student");
+		servletContext.removeAttribute("name");
+		
+		
+		
+		/**
+		 * 转发：
+		 *  1.地址栏不会改变
+		 *  2.不能转发到当前web应用之外的web应用中去。
+		 *  3.forward方法的调用者与被调用者之间共享Request和Response（也就是说要使用request域对象进行数据共享，只能用转发）
+		 *  
+		 * 重定向：
+		 * 	1.地址栏变成重定向的地址
+		 * 	2.可以重定向到其他web应用，甚至是其他外部的域名
+		 * 	3.sendRedirect方法由于两次浏览器服务器请求，所以有两个Request和Response
+		 */
+		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/index.jsp?name=狗娃");
+		dispatcher.forward(req, resp);
 	}
 }

@@ -1,6 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
+request.setCharacterEncoding("UTF-8");			//防止乱码
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
@@ -22,5 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     This is my JSP page. <br>
+    <%="requestDispatcher转发来的数据: "+request.getParameter("name") %>
   </body>
 </html>
