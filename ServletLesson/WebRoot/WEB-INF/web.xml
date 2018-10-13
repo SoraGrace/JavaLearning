@@ -18,6 +18,29 @@
   	<servlet-class>com.fja.base.ServletLifecycle</servlet-class>
   </servlet>
   
+  
+  <servlet>
+  	<servlet-name>config</servlet-name>
+  	<servlet-class>com.fja.base.Servletconfig</servlet-class>
+  	<!-- 
+  		配置servlet初始参数,作用和properties文件类似，并且也是key value的形式进行配置 
+  		这些初始化参数会封装到ServletConfig对象中去，通过init(ServletConfig)进行获取
+  	-->
+  	<init-param>
+  		<!-- key -->
+  		<param-name>filePath</param-name>
+  		<!-- value -->
+  		<param-value>E:/poet.txt</param-value>
+  	</init-param>
+  	
+  	<init-param>
+  		<param-name>picPath</param-name>
+  		<param-value>D:/alien.jpg</param-value>
+  	</init-param>
+  </servlet>
+  
+  
+  
   <!-- 精确匹配 -->
   <servlet-mapping>
   	<servlet-name>base</servlet-name>
@@ -30,8 +53,16 @@
   </servlet-mapping>
   
   <!-- 模糊匹配 -->
-    <servlet-mapping>
+  <servlet-mapping>
   	<servlet-name>base</servlet-name>
   	<url-pattern>/servlet/apply/*</url-pattern>
   </servlet-mapping>
+  
+  
+  <!-- serlvet的配置信息 -->
+  <servlet-mapping>
+  	<servlet-name>config</servlet-name>
+  	<url-pattern>/servlet/config</url-pattern>
+  </servlet-mapping>
+  	  
 </web-app>
