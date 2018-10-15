@@ -64,6 +64,14 @@
   
   
   
+  <!-- getRealPath -->
+  <servlet>
+  	<servlet-name>acquireResource</servlet-name>
+  	<servlet-class>com.fja.storage.AcquireWebResource</servlet-class>
+  </servlet>
+  
+  
+  
   <!-- 精确匹配 -->
   <servlet-mapping>
   	<servlet-name>base</servlet-name>
@@ -93,5 +101,11 @@
   <servlet-mapping>
   	<servlet-name>servletcontext</servlet-name>
   	<url-pattern>/servlet/context</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>acquireResource</servlet-name>
+  	<url-pattern>/acquire/resource</url-pattern>
   </servlet-mapping>
 </web-app>
