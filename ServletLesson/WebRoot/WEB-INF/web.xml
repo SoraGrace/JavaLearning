@@ -71,6 +71,12 @@
   </servlet>
   
   
+  <servlet>
+  	<servlet-name>newCookie</servlet-name>
+  	<servlet-class>com.fja.storage.NewCookie</servlet-class>
+  </servlet>
+  
+  <!-- =========================================================== -->
   
   <!-- 精确匹配 -->
   <servlet-mapping>
@@ -108,4 +114,10 @@
   	<servlet-name>acquireResource</servlet-name>
   	<url-pattern>/acquire/resource</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>newCookie</servlet-name>
+  	<url-pattern>/new/cookie</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
