@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shelf:书架
+	xmlns:shelf ="http://www.asdmd177.org/bookshelf"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.asdmd177.org/bookshelf ./bookshelf.xsd">
+		<shelf:书 id="1">
+			<shelf:书名>水浒传</shelf:书名>
+			<shelf:作者>施耐庵</shelf:作者>
+			<shelf:价格>32.99</shelf:价格>
+		</shelf:书>
+		
+		<shelf:书 id="2">
+			<shelf:书名>红楼梦</shelf:书名>
+			<shelf:作者>曹雪芹</shelf:作者>
+			<shelf:价格>35.99</shelf:价格>
+		</shelf:书>
+</shelf:书架>
+
+
+
+<!-- 
+	xml中引入Schema：
+		1.在根标签内部声明自定义的Schema，格式： xmlns:命名空间的名称=命名空间的别名
+		2.在xsi:schemaLocation中指定自定义的schema文件，格式: xsi:schemaLocation=命名空间的别名+(空格)+scheam文件路径
+		
+	使用命名空间：
+		<命名空间的名称:标签></命名空间的名称:标签> 例：<shelf:书架></shelf:书架>
+		
+	【注意】
+	xmlns=命名空间的别名，定义默认的命名空间，所有的未添加命名空间的名称的标签都要按照这个默认命名空间的规则书写
+ -->
