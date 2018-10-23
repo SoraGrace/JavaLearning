@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.asdmd177.org/bookshelf"
+	xmlns="http://www.w3school.com.cn"
+	elementFormDefault="qualified">
+
+	<xs:element name="书架">
+		<!-- 是复杂类型(element) -->
+		<xs:complexType>
+			<!-- 顺序指示器，规定了子元素的书写顺序 -->
+			<xs:sequence>
+				<!-- maxOccurs、minOccurs出现频率指示器，指定出现的次数，unbounded表示不限次数。不写默认出现一次 -->
+				<xs:element name="书" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<!-- type 文本元素的类型 -->
+							<xs:element name="书名" type="xs:string"></xs:element>
+							<xs:element name="作者" type="xs:string"></xs:element>
+							<xs:element name="价格" type="xs:decimal"></xs:element>
+						</xs:sequence>
+						<!-- 定义属性的名称、类型、默认值 -->
+						<xs:attribute name="id" type="xs:integer" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+
+
+<!-- 
+schema vs dtd：
+	1. 更灵活，一个xml文档中可以引入多个schema。
+	2. 可以精确地指定某一个元素对应哪一个schema文件的规则
+	3. schema值类型更多，有浮点、整数、字符串
+ -->
