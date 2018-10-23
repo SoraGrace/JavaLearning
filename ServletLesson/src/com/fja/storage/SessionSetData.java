@@ -1,6 +1,11 @@
 package com.fja.storage;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Cookie的局限：
@@ -34,6 +39,11 @@ import javax.servlet.http.HttpServlet;
  * 	清除数据：
  * 		removeAttribute(String key)										
  */
-public class SessionMethod extends HttpServlet{
-
+public class SessionSetData extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		//1.获取session对象
+		req.getSession();
+	}
 }
