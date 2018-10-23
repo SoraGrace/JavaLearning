@@ -83,6 +83,19 @@
   	<servlet-class>com.fja.storage.CookieDetails</servlet-class>
   </servlet>
   
+  
+  <!-- session存储数据 -->
+  <servlet>
+  	<servlet-name>sessionSetData</servlet-name>
+  	<servlet-class>com.fja.storage.SessionSetData</servlet-class>
+  </servlet>
+  
+  <!-- session获取数据 -->
+  <servlet>
+  	<servlet-name>sessionGetData</servlet-name>
+  	<servlet-class>com.fja.storage.SessionGetData</servlet-class>
+  </servlet>
+  
   <!-- =========================================================== -->
   
   <!-- 精确匹配 -->
@@ -132,6 +145,18 @@
   <servlet-mapping>
   	<servlet-name>cookieDetail</servlet-name>
   	<url-pattern>/cookie/detail</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>sessionSetData</servlet-name>
+  	<url-pattern>/session/set</url-pattern>
+  </servlet-mapping>
+  
+  
+    <servlet-mapping>
+  	<servlet-name>sessionGetData</servlet-name>
+  	<url-pattern>/session/get</url-pattern>
   </servlet-mapping>
   
 </web-app>

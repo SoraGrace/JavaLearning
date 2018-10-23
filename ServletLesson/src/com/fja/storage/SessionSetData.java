@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Cookie的局限：
@@ -44,6 +45,9 @@ public class SessionSetData extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		//1.获取session对象
-		req.getSession();
+		HttpSession session = req.getSession();
+		
+		//2.存储数据
+		session.setAttribute("user", "狗剩");
 	}
 }
