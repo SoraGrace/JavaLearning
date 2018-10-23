@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * 	1.Cookie的数据只有字符串类型
  * 	2.Cookie的数据不支持中文字符串，只能保存英文数据
  * 	3.Cookie大小限制是4KB，每个站点最多存放20个Cookie数据
+ * 	4.Cookie可以被用户清除
  */
 public class CookieDetails extends HttpServlet{
 	
