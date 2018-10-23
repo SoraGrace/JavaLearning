@@ -49,6 +49,11 @@
   	<servlet-class>com.fja.web.response.ResponseMessyCode</servlet-class>
   </servlet>
   
+  <servlet>
+  	<servlet-name>cookieSetPath</servlet-name>
+  	<servlet-class>com.fja.web.cookie.CookieSetPath</servlet-class>
+  </servlet>
+  
   
   <!-- 路由 -->
   <servlet-mapping>
@@ -86,6 +91,12 @@
   <servlet-mapping>
   	<servlet-name>responseMessyCode</servlet-name>
   	<url-pattern>/response/messy</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>cookieSetPath</servlet-name>
+  	<url-pattern>/cookie/setPath</url-pattern>
   </servlet-mapping>
   
 </web-app>
