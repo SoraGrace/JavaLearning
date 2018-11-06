@@ -96,6 +96,12 @@
   	<servlet-class>com.fja.storage.SessionGetData</servlet-class>
   </servlet>
   
+  <!-- 删除session -->
+  <servlet>
+  	<servlet-name>sessionInvalid</servlet-name>
+  	<servlet-class>com.fja.storage.SessionInvalidate</servlet-class>
+  </servlet>
+  
   <!-- =========================================================== -->
   
   <!-- 精确匹配 -->
@@ -147,16 +153,22 @@
   	<url-pattern>/cookie/detail</url-pattern>
   </servlet-mapping>
   
-  
+  <!-- session -->
   <servlet-mapping>
   	<servlet-name>sessionSetData</servlet-name>
   	<url-pattern>/session/set</url-pattern>
   </servlet-mapping>
   
   
-    <servlet-mapping>
+  <servlet-mapping>
   	<servlet-name>sessionGetData</servlet-name>
   	<url-pattern>/session/get</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 删除session -->
+  <servlet-mapping>
+  	<servlet-name>sessionInvalid</servlet-name>
+  	<url-pattern>/session/del</url-pattern>
   </servlet-mapping>
   
 </web-app>
