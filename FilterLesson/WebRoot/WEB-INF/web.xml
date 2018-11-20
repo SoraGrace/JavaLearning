@@ -5,18 +5,47 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
-
-
+	<!-- 配置全局异常（声明式异常） -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
 
 	<!-- 过滤器配置 -->
 	<filter>
 		<filter-name>baseFilter</filter-name>
 		<filter-class>com.filter.base.BaseProcess</filter-class>
+		<!-- 初始化参数 -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>basePath</param-name>
+			<param-value>/FilterLesson</param-value>
+		</init-param>
 	</filter>
 	
 	<filter-mapping>
 		<filter-name>baseFilter</filter-name>
-		<url-pattern>/filter/base</url-pattern>
+		<!-- 1. 根据url进行拦截	-->
+		<url-pattern>/*</url-pattern> 
+		
+		
+		<!-- 2. 根据servlet的名称进行拦截 
+		<servlet-name>filterBaseServlet</servlet-name>
+		-->
+		
+		<!-- 3. 根据类型进行拦截 -->
+		<!-- 对请求进行拦截（默认） -->
+		<dispatcher>REQUEST</dispatcher>
+		<!-- 对转发进行拦截 -->
+		<dispatcher>FORWARD</dispatcher>
+		<!-- 对包含页面进行拦截 -->
+		<dispatcher>INCLUDE</dispatcher>
+		<!-- 对声明式异常进行拦截 -->
+		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 	
 	

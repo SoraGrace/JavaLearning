@@ -1,6 +1,7 @@
 package com.filter.base;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -35,8 +36,9 @@ import javax.servlet.ServletResponse;
  *  Filter的生命周期：
  *  	1.在服务器启动时创建过滤器实例和初始化过滤器
  *  	2.访问对应servlet时执行过滤器的doFilter方法chain.doFilter前的代码
- *  	3.servlet处理完成后再次执行doFilter方法chain.doFilter后的代码
- *  	4.关闭服务器时，销毁过滤器的实例
+ *  	3.过滤器执行chain.doFilter()方法放行，如果有下一个过滤器则进入下一个过滤器，否则进入servlet
+ *  	4.servlet处理完成后再次执行doFilter方法chain.doFilter后的代码
+ *  	5.关闭服务器时，销毁过滤器的实例
  */
 public class BaseProcess implements Filter{
 	
@@ -53,9 +55,10 @@ public class BaseProcess implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
 		System.out.println("3.执行过滤器业务处理逻辑");
 		
-		//放行
+		//放行，如果有下一个过滤器则进入下一个过滤器，否则执行访问的servlet的逻辑代码
 		chain.doFilter(request, response);
 		
 		
@@ -65,5 +68,22 @@ public class BaseProcess implements Filter{
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		System.out.println("2.执行过滤器初始化方法");
+		/**
+		 * filterConfig的相关方法：
+		 * 1.getFilterName()			获取web.xml文件中<filter-name />的数据
+		 * 2.getInitParameter()			获取初始化数据
+		 * 3.getInitParameterNames()	获取所有初始化数据的键
+		 * 4.getServletContext()		获取servletContext，和servlet一样
+		 */
+		String filterName = filterConfig.getFilterName();
+		System.out.println("过滤器名称： "+filterName);
+		
+		Enumeration<String> keys = filterConfig.getInitParameterNames();
+		//遍历
+		while(keys.hasMoreElements()){
+			String key = keys.nextElement();
+			String value = filterConfig.getInitParameter(key);
+			System.out.println(key+"\t"+value);
+		}
 	}
 }
