@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import com.fja.spring.annotation.model.Dom;
 import com.fja.spring.annotation.model.Gundam;
 import com.fja.spring.annotation.model.Zaku;
 
@@ -15,8 +16,8 @@ import com.fja.spring.annotation.model.Zaku;
 public class App {
 	
     public static void main( String[] args ) {
-    	//构造方法可以传入一个配置类的class文件
-    	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class);
+    	//Spring注解上下文（AnnotationConfigApplicationContext），构造方法可以传入一个配置类的class文件
+    	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class,Dom.class);
     	//获取bean实列
     	//1. 通过class
     	System.out.println(context.getBean(Gundam.class));
@@ -29,6 +30,15 @@ public class App {
     	//2.2 通过自定义的名字返回
     	System.out.println(context.getBean("zaku"));
     	System.out.println(context.getBean("zaku"));
+    	
+    	//不通过配置类（BeanConfig）,直接将类加入Spring注解上下文也是可以获得bean的实例的
+    	//通过名字获取，不指定名字默认是类名，首字母小写
+    	System.out.println(context.getBean("dom"));
+    	//通过类型获取
+    	System.out.println(context.getBean(Dom.class));
+    	
+    	//除了getBean，还能通过getBeansOfType,返回一个map
+    	System.out.println(context.getBeansOfType(Dom.class));
     	context.close();
     }
 }
